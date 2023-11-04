@@ -48,7 +48,6 @@ struct conjunto{
     int tamanho;
     long int *elementos;
 };
-
 //Função para criar um conjunto vazio
 int criaConjunto(Conjunto *C){
     if(C != NULL){
@@ -57,12 +56,10 @@ int criaConjunto(Conjunto *C){
         return SUCESSO;
     }return FALHA;
 }
-
 //Função pra ver se o conjunto está vazio
 int conjuntoVazio(Conjunto *C){
     return (C != NULL && C->tamanho == 0) ? TRUE : FALSE;
 }
-
 //Função pra iserir um elemento no conjunto
 int insereElementoConjunto(long int x, Conjunto *C){
     if(C != NULL && C->tamanho < MAX_ELEMENTOS && x < LONG_MAX && x > LONG_MIN){
@@ -76,7 +73,6 @@ int insereElementoConjunto(long int x, Conjunto *C){
         return SUCESSO;
     }return FALHA;
 }
-
 //Função pra exlucir um elemento do conjunto
 int excluirElementoConjunto(long int x, Conjunto *C){
     if(C != NULL){
@@ -94,12 +90,10 @@ int excluirElementoConjunto(long int x, Conjunto *C){
         }return encontrado ? SUCESSO : FALHA;
     }return FALHA;
 }
-
 //Função pra calcular a cardinalidade do conjunto
 int tamanhoConjunto(Conjunto *C){
     return (C != NULL) ? C->tamanho : 0;
 }
-
 //Função pra ver a quantidade de elementos maiores que X no conjunto
 int maior(long int x, Conjunto *C){
     int maiores = 0;
@@ -112,7 +106,6 @@ int maior(long int x, Conjunto *C){
         if(C->tamanho == maiores) return 0;
     }return maiores;
 }
-
 //Função pra ver a quantidade de elementos menores que X no conjunto 
 int menor(long int x, Conjunto *C){
     int menores = 0;
@@ -125,7 +118,6 @@ int menor(long int x, Conjunto *C){
         if(C->tamanho == menores) return 0;
     }return menores;
 }
-
 //Função pra verificar se o elemento X pertence ao conjunto
 int pertenceConjunto(long int x, Conjunto *C){
     if(C != NULL){
@@ -136,7 +128,6 @@ int pertenceConjunto(long int x, Conjunto *C){
         }return FALSE;
     }return FALSE;
 }
-
 //Função pra comparar se os conjuntos são idênticos
 int conjuntosIdenticos(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL && C1->tamanho == C2->tamanho){
@@ -148,8 +139,7 @@ int conjuntosIdenticos(Conjunto *C1, Conjunto *C2){
         }return TRUE;
     }return FALSE;
 }
-
-//Funççao pra verificar se C1 é subconjunto de C2
+//Função pra verificar se C1 é subconjunto de C2
 int subConjunto(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
@@ -160,7 +150,6 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
         }return TRUE;
     }return FALSE;
 }
-
 //Função pra gerar o complemento de C1 em relação a C2
 Conjunto complemento(Conjunto *C1, Conjunto *C2){
     Conjunto complemento;
@@ -175,7 +164,6 @@ Conjunto complemento(Conjunto *C1, Conjunto *C2){
         }
     }return complemento;
 }
-
 //Função pra gerar a união de C1 com C2
 Conjunto uniao(Conjunto *C1, Conjunto *C2){
     Conjunto uniao;
@@ -190,7 +178,6 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2){
         }
     }return uniao;
 }
-
 //Função pra gerar a intersecção de C1 com C2
 Conjunto interseccao(Conjunto *C1, Conjunto *C2){
     Conjunto interseccao;
@@ -205,7 +192,6 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
         }
     }return interseccao;
 }
-
 //Função pra gerar a diferença de C1 e C2
 Conjunto diferenca(Conjunto *C1, Conjunto *C2){
     Conjunto diferenca;
@@ -220,10 +206,8 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
         }
     }return diferenca;
 }
-
 //Sinceramente esssa aqui eu nem consegui pensar em como fazer 
 // um beijão pro GPT <3
-
 Conjunto conjuntoPartes(Conjunto *C) {
     Conjunto resultado;
     criaConjunto(&resultado);
@@ -243,7 +227,6 @@ Conjunto conjuntoPartes(Conjunto *C) {
         }
     }return resultado;
 }
-
 //Função pra mostrar os elementos no conjunto
 void mostraConjunto(Conjunto *C, int ordem){
     if(C != NULL){
@@ -260,7 +243,6 @@ void mostraConjunto(Conjunto *C, int ordem){
         }printf("}\n");
     }
 }
-
 // Função para copiar um conjunto para outro
 int copiarConjunto(Conjunto *C1, Conjunto *C2){
     if (C1 != NULL && C2 != NULL){
@@ -270,7 +252,6 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2){
         }return SUCESSO;
     }return FALHA;
 }
-
 // Função para destruir o conjunto
 int destroiConjunto(Conjunto *C){
     if (C != NULL){
@@ -279,12 +260,10 @@ int destroiConjunto(Conjunto *C){
         return SUCESSO;
     }return FALHA;
 }
-
 //Função pra printar linha :O
 void printLinha(){
     printf("+------------------------------------------------------------------------+\n");
 }
-
 //Função pra printar as opções :O
 void opcoes(){
     printLinha();
@@ -307,7 +286,6 @@ void opcoes(){
     printf("| [17] -> [Copiar conjunto para outro]                                   |\n");
     printf("| [18] -> [Destruir conjunto]                                            |\n");
 }
-
 //Função pra printar boas vindas :O
 void boasVindas(){
     printLinha();
@@ -317,7 +295,6 @@ void boasVindas(){
     printf("|                          Escolha uma opção:                            |\n");
     opcoes();
 }
-
 //Função auxiliar pra criar o conjunto C1 e conjunto C2
 void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
     criaConjunto(C1), criaConjunto(C2);
