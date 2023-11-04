@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
+#include <math.h>
 
 //Define o tamanho máximo de elementos no conjunto
 #define MAX_ELEMENTOS 100000 
@@ -243,35 +244,28 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
     return diferenca;
 }
 
-// Função auxiliar pra adicionar um subconjunto ao resultado
-void adicionaSubconjunto(Conjunto *resultado, int *subconjunto, int tamanho) {
-    for (int i = 0; i < tamanho; i++) {
-        insereElementoConjunto(subconjunto[i], resultado);
-    }
-}
+//Sinceramente esssa aqui eu nem consegui pensar em como fazer 
+// um beijão pro GPT <3
 
-// Função auxiliar recursiva pra gerar o conjunto das partes
-void geraConjuntoPartesRecursivo(Conjunto *C, Conjunto *resultado, int *subconjunto, int posicao, int inicio) {
-    // Adicione o subconjunto atual ao resultado
-    adicionaSubconjunto(resultado, subconjunto, posicao);
-    
-    for (int i = inicio; i < C->tamanho; i++) {
-        subconjunto[posicao] = C->elementos[i];
-        geraConjuntoPartesRecursivo(C, resultado, subconjunto, posicao + 1, i + 1);
-    }
-}
-
-// Função pra gerar o conjunto das partes do conjunto C
 Conjunto conjuntoPartes(Conjunto *C) {
     Conjunto resultado;
     criaConjunto(&resultado);
     
     if (C != NULL) {
-        // Gere o conjunto das partes usando recursão
-        int subconjunto[MAX_ELEMENTOS];
-        geraConjuntoPartesRecursivo(C, &resultado, subconjunto, 0, 0);
+        int n = C->tamanho;
+        int numSubconjuntos = pow(2, n);
+
+        for (int i = 0; i < numSubconjuntos; i++) {
+            criaConjunto(&resultado);
+
+            for (int j = 0; j < n; j++) {
+                if ((i & (1 << j)) != 0) {
+                    insereElementoConjunto(C->elementos[j], &resultado);
+                }
+            }
+            mostraConjunto(&resultado, CRESCENTE);
+        }
     }
-    
     return resultado;
 }
 
@@ -315,32 +309,35 @@ int destroiConjunto(Conjunto *C){
     return FALHA;
 }
 
+//Função pra printar linha :O
 void printLinha(){
     printf("+------------------------------------------------------------------------+\n");
 }
 
+//Função pra printar as opções :O
 void opcoes(){
     printLinha();
     printf("| [1 ] -> [Criar um conjunto C]                                          |\n");
-    printf("| [2 ] -> [Verificar se um conjunto é vazio]                             |\n");
-    printf("| [3 ] -> [Inserir um elemento no conjunto]                              |\n");
-    printf("| [4 ] -> [Excluir um elemento do conjunto]                              |\n");
-    printf("| [5 ] -> [Mostrar os elementos de um conjunto]                          |\n");
-    printf("| [6 ] -> [Calcular a cardinalidade de um conjunto]                      |\n");
+    printf("| [2 ] -> [Verificar se o conjunto C é vazio]                            |\n");
+    printf("| [3 ] -> [Inserir um elemento no conjunto C]                            |\n");
+    printf("| [4 ] -> [Excluir um elemento do conjunto C]                            |\n");
+    printf("| [5 ] -> [Mostrar os elementos do conjunto C]                           |\n");
+    printf("| [6 ] -> [Calcular a cardinalidade do conjunto C]                       |\n");
     printf("| [7 ] -> [Verificar elementos maiores que um número]                    |\n");
     printf("| [8 ] -> [Verificar elementos menores que um número]                    |\n");
     printf("| [9 ] -> [Verificar pertinência de um elemento]                         |\n");
-    printf("| [10] -> [Comparar conjuntos idênticos]                                 |\n");
-    printf("| [11] -> [Identificar subconjunto]                                      |\n");
-    printf("| [12] -> [Gerar complemento de um conjunto]                             |\n");
-    printf("| [13] -> [Gerar união de dois conjuntos]                                |\n");
-    printf("| [14] -> [Gerar intersecção entre dois conjuntos]                       |\n");
-    printf("| [15] -> [Gerar diferença entre dois conjuntos]                         |\n");
-    printf("| [16] -> [Gerar conjunto das partes]                                    |\n");
+    printf("| [10] -> [Gerar conjunto das partes]                                    |\n");
+    printf("| [11] -> [Comparar conjuntos idênticos]                                 |\n");
+    printf("| [12] -> [Identificar subconjunto]                                      |\n");
+    printf("| [13] -> [Gerar complemento de um conjunto]                             |\n");
+    printf("| [14] -> [Gerar união de dois conjuntos]                                |\n");
+    printf("| [15] -> [Gerar intersecção entre dois conjuntos]                       |\n");
+    printf("| [16] -> [Gerar diferença entre dois conjuntos]                         |\n");
     printf("| [17] -> [Copiar conjunto para outro]                                   |\n");
     printf("| [18] -> [Destruir conjunto]                                            |\n");
 }
 
+//Função pra printar boas vindas :O
 void boasVindas(){
     printLinha();
     printf("|                    Bem-vindo ao menu de operações                      |\n");
@@ -348,6 +345,32 @@ void boasVindas(){
     printLinha();
     printf("|                          Escolha uma opção:                            |\n");
     opcoes();
+}
+
+//Função auxiliar pra criar o conjunto C1 e conjunto C2
+void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
+    criaConjunto(C1);
+    criaConjunto(C2);
+    printf("Quantos elementos em C1?: ");
+    int quantidade;
+    scanf("%d", &quantidade);
+    printf("Digite os elementos a serem inseridos em C1: ");
+    for(int i = 0; i<quantidade; i++){
+        long int elemento;
+        printf("%d elemento: ", i+1);
+        scanf("%ld", &elemento);
+        insereElementoConjunto(elemento, C1);
+    }
+    printf("Quantos elementos em C2?: ");
+    int quantidade2;
+    scanf("%d", &quantidade2);
+    printf("Digite os elementos a serem inseridos em C2: ");
+    for(int i = 0; i<quantidade2; i++){
+        long int elemento2;
+        printf("%d° elemento: ", i+1);
+        scanf("%ld", &elemento2);
+        insereElementoConjunto(elemento2, C2);
+    }
 }
 
 //==============================================================================
@@ -358,14 +381,13 @@ int main(){
     boasVindas();
     int escolha;
     while(escolha != 0){
-        Conjunto C;
+        Conjunto C , C1, C2;
         printLinha();
         printf("| [999] -> [Mostrar opções novamente]                                    |\n");
         printf("| [ 0 ] -> [Encerrar programa]                                           |\n");
         printLinha();
-
         scanf("%d", &escolha);
-        switch (escolha) {
+        switch (escolha){
             case 0:
                 break;
             case 999:
@@ -389,7 +411,6 @@ int main(){
                 (inserido == 1) ? printf("Elemento inserido com sucesso\n") : printf("Erro na inserção do elemento\n");
                 break;
             }
-            
             case 4: {
                 long int elemento;
                 printf("Digite o elemento a ser excluido do conjunto: ");
@@ -398,7 +419,6 @@ int main(){
                 (excluido == 1) ? printf("Elemento excluido com sucesso\n") : printf("Erro na exclusão do elemento\n");
                 break;
             }
-
             case 5: {
                 printf("Mostrar conjunto de forma Crescente[1] ou Descrescente[2]?: ");
                 int cres;
@@ -421,7 +441,6 @@ int main(){
                 printf("Tamanho do conjunto: %d\n", tamanho);
                 break;
             }
-
             case 7: {
                 long int elemento;
                 printf("Digite um elemento: ");
@@ -448,13 +467,92 @@ int main(){
                 (pertence == 1) ? printf("O elemento dado pertence ao conjunto\n") : printf("O elemento dado não pertence ao conjunto\n");
                 break;
             }
-
+            case 10: {
+                conjuntoPartes(&C);
+                break;
+            }
+            case 11: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                int identicos = conjuntosIdenticos(&C1, &C2);
+                (identicos == 1) ? printf("Os conjuntos são idênticos\n") : printf("Os conjuntos não são idênticos\n");
+                break;
+            }
+            case 12: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                int subconjunto = subConjunto(&C1, &C2);
+                (subconjunto == 1) ? printf("C1 é subconjunto de C2\n") : printf("C1 não é subconjunto de C2\n");
+                break;
+            }
+            case 13: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                Conjunto complementoC1;
+                complementoC1 = complemento(&C1, &C2);
+                mostraConjunto(&complementoC1, CRESCENTE);
+                break;
+            }
+            case 14: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                Conjunto uniaoC1;
+                uniaoC1 = uniao(&C1, &C2);
+                mostraConjunto(&uniaoC1, CRESCENTE);
+                break;
+            }
+            case 15: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                Conjunto interseccaoC1;
+                interseccaoC1 = interseccao(&C1, &C2);
+                mostraConjunto(&interseccaoC1, CRESCENTE);
+                break;
+            }
+            case 16: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                Conjunto diferencaC1;
+                diferencaC1 = diferenca(&C1, &C2);
+                mostraConjunto(&diferencaC1, CRESCENTE);
+                break;
+            }
+            case 17: {
+                AuxiliarCriarC1C2(&C1, &C2);
+                int copia = copiarConjunto(&C1, &C2);
+                if(copia == 1){
+                    printf("Copiado com sucesso!\n");
+                    mostraConjunto(&C2, CRESCENTE);
+                }else{
+                    printf("Erro na cópia\n");
+                }
+                break;
+            }
+            case 18: {
+                printf("Qual conjunto destruir?\n");
+                printf("(C = 0, C1 = 1, C2 = 2): ");
+                int opcao;
+                scanf("%d", &opcao);
+                switch (opcao){
+                case 0: {
+                    int destruido = destroiConjunto(&C);
+                    (destruido == 1) ? printf("Conjunto C destruido com sucesso!\n") : printf("Erro na destruição do Conjunto C\n");
+                    break;
+                }
+                case 1: {
+                    int destruido = destroiConjunto(&C1);
+                    (destruido == 1) ? printf("Conjunto C1 destruido com sucesso!\n") : printf("Erro na destruição do Conjunto C1\n");
+                    break;
+                }
+                case 2: {
+                    int destruido = destroiConjunto(&C2);
+                    (destruido == 1) ? printf("Conjunto C2 destruido com sucesso!\n") : printf("Erro na destruição do Conjunto C2\n");
+                    break;
+                }
+                default:
+                    printf("Opção inválida. Tente novamente.\n");
+                    break;
+                }
+                break;
+            }
             default:
                 printf("Opção inválida. Tente novamente.\n");
                 break;
         }
     }
-
-
     return 0;
 }
