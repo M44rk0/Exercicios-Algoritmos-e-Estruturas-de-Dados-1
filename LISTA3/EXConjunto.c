@@ -9,7 +9,7 @@
 #include <math.h>
 
 //Define o tamanho máximo de elementos no conjunto
-#define MAX_ELEMENTOS 100000 
+#define MAX_ELEMENTOS 1000000 
 
 //Define as constantes
 #define SUCESSO 1
@@ -45,13 +45,14 @@ int destroiConjunto(Conjunto *C);
 
 //Define o struct Conjunto
 struct conjunto{
-    long int elementos[MAX_ELEMENTOS];
     int tamanho;
+    long int *elementos;
 };
 
 //Função para criar um conjunto vazio
 int criaConjunto(Conjunto *C){
     if(C != NULL){
+        C->elementos = (long int *)malloc(1000000 * sizeof(long int));
         C->tamanho = 0;
         return SUCESSO;
     }
@@ -304,6 +305,7 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2){
 int destroiConjunto(Conjunto *C){
     if (C != NULL){
         C->tamanho = 0;
+        free(C->elementos);
         return SUCESSO;
     }
     return FALHA;
