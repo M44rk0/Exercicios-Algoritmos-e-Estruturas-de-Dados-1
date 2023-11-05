@@ -1,5 +1,5 @@
 //==============================================================================
-// Arquivo ponto.h
+// Arquivo pilha.h
 //==============================================================================
 #include <stdio.h>
 #include <stdlib.h>
@@ -27,7 +27,7 @@ int isEqual(Stack *P1, Stack *P2);
 void show(Stack *P, int ordem);
 int copy(Stack *P1, Stack *P2);
 //==============================================================================
-// Arquivo ponto.c
+// Arquivo pilha.c
 //==============================================================================
 
 //Definindo o struct stack(Pilha)
@@ -180,6 +180,9 @@ void boasVindas(){
     printf("|                          Escolha uma opcao:                            |\n");
     opcoes();
 }
+//==============================================================================
+// Corpo principal
+//==============================================================================
 
 int main(){
    boasVindas();
@@ -222,12 +225,9 @@ int main(){
             }
             case 4: {
                 if(criadoP){
-                long int elemento;
-                printf("Digite o elemento a ser excluido do conjunto: ");
-                scanf("%ld", &elemento);
-                (pop(&P) == 1) ? printf("Elemento excluido com sucesso\n") : printf("Erro na exclusao do elemento\n");
+                (pop(&P) == 1) ? printf("Elemento removido com sucesso\n") : printf("Erro na remocao do elemento\n");
                 break;
-                }printf("Erro, Pilha P ainda nao foi criado\n");
+                }printf("Erro, Pilha P ainda nao foi criada\n");
                 break;
             }
             case 5: {

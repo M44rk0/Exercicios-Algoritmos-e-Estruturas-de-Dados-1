@@ -1,11 +1,11 @@
 #include <stdio.h>
 
-int fatorialDuplo(int n) {
+double fatorialDuplo(int n) {
     if (n <= 1) {
-        return 1;
+        return 1.0;
     } else {
         if (n % 2 != 0) {
-            return n * fatorialDuplo(n - 2);
+            return (double)n * fatorialDuplo(n - 2);
         } else {
             return fatorialDuplo(n - 1);
         }
@@ -15,7 +15,7 @@ int fatorialDuplo(int n) {
 int main() {
     int numero;
     scanf("%d", &numero);
-    int resultado = fatorialDuplo(numero);
-    printf("%d", resultado);
+    double resultado = fatorialDuplo(numero);
+    printf("%.0f", resultado);
     return 0;
 }

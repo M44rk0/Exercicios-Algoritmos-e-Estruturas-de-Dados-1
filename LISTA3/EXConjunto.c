@@ -1,5 +1,5 @@
 //==============================================================================
-// Arquivo ponto.h
+// Arquivo conjunto.h
 //==============================================================================
 
 #include <stdio.h>
@@ -17,7 +17,7 @@
 #define TRUE 1
 #define FALSE 0 
 #define CRESCENTE 1
-#define DECRESCENTE 2
+#define DECRESCENTE 0
 
 typedef struct conjunto Conjunto;
 int criaConjunto(Conjunto *C);
@@ -40,7 +40,7 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2);
 int destroiConjunto(Conjunto *C);
 
 //==============================================================================
-// Arquivo ponto.c
+// Arquivo conjunto.c
 //==============================================================================
 
 //Define o struct Conjunto
@@ -206,7 +206,7 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
         }
     }return diferenca;
 }
-//Sinceramente esssa aqui eu nem consegui pensar em como fazer 
+//Sinceramente essa aqui eu nem consegui pensar em como fazer 
 // um beijao pro GPT <3
 Conjunto conjuntoPartes(Conjunto *C) {
     Conjunto resultado;
@@ -387,14 +387,14 @@ int main(){
             }
             case 5: {
                 if(criadoC){
-                printf("Mostrar conjunto de forma Crescente[1] ou Descrescente[2]?: ");
+                printf("Mostrar conjunto de forma Crescente[1] ou Descrescente[0]?: ");
                 int cres;
                 scanf("%d", &cres);
                 switch (cres) {
                     case 1:
                         mostraConjunto(&C, CRESCENTE);
                         break;
-                    case 2:
+                    case 0:
                         mostraConjunto(&C, DECRESCENTE);
                         break;
                     default:
