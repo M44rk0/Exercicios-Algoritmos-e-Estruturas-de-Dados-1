@@ -91,14 +91,16 @@ int isEqual(Stack *P1, Stack *P2){
 void show(Stack *P, int ordem){
     if(P != NULL){
         if(ordem == BASE){
+            printf("\n");
             for(int i = 0; i < P->top+1; i++){
                 printf(" %ld \n", P->data[i]);
             }
         }else if (ordem == TOP){
+            printf("\n");
             for(int i = P->top; i >= 0; i--){
                 printf("  %ld \n", P->data[i]);
             }
-        }printf("\n");
+        };printf("\n");
     }
 }
 //Funcao pra copiar uma pilha pra outra
@@ -120,7 +122,8 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade <= 0){
             printf("quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em P1?: ");
-        }else{break;};
+        }else{
+            break;};
     }
     printf("Digite os elementos a serem inseridos em P1:\n");
     for(int i = 0; i<quantidade; i++){
@@ -136,7 +139,8 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade2 <= 0){
             printf("quantidade invalida, tente novamente\n");
             printf("Quantos elementos em P2?: ");
-        }else{break;};
+        }else{
+            break;};
     }
     printf("Digite os elementos a serem inseridos em P2:\n");
     for(int i = 0; i<quantidade2; i++){
@@ -156,28 +160,25 @@ int destroy(Stack *P){
 }
 //Funcao auxiliar pra printar linha
 void printLinha(){
-    printf("+------------------------------------------------------------------------+\n");
+    printf("+-------------------------------------------------------------------------------------------+\n");
 }
 //Funcao auxiliar pra printar opcões
 void opcoes(){
     printLinha();
-    printf("| [1] -> [Criar uma Pilha P]                                             |\n");
-    printf("| [2] -> [Verificar se a Pilha P e vazia]                                |\n");
-    printf("| [3] -> [Inserir um elemento na Pilha P]                                |\n");
-    printf("| [4] -> [Excluir um elemento da Pilha P]                                |\n");
-    printf("| [5] -> [Mostrar os elementos da Pilha P]                               |\n");
-    printf("| [6] -> [Calcular a cardinalidade da Pilha P]                           |\n");
-    printf("| [7] -> [Comparar duas Pilhas]                                          |\n");
-    printf("| [8] -> [Copiar uma Pilha para outra]                                   |\n");
-    printf("| [9] -> [Destruir Pilha]                                                |\n");
+printf("| [ 1] -> [Criar uma Pilha P]               | [ 6] -> [Calcular a cardinalidade da Pilha P] |\n");
+printf("| [ 2] -> [Verificar se a Pilha P é vazia]  | [ 7] -> [Comparar duas Pilhas]                |\n");
+printf("| [ 3] -> [Inserir um elemento na Pilha P]  | [ 8] -> [Copiar uma Pilha para outra]         |\n");
+printf("| [ 4] -> [Excluir um elemento da Pilha P]  | [ 9] -> [Destruir Pilha]                      |\n");
+printf("| [ 5] -> [Mostrar os elementos da Pilha P] |                                               |\n");
 }
 //Funcao pra printar boas vindas :O
 void boasVindas(){
     printLinha();
-    printf("|                    Bem-vindo ao menu de operacoes                      |\n");
-    printf("|                             com Pilhas                                 |\n");
+    printf("|          ░█▀█░█▀█░█▀▀░█▀█░█▀█░█▀▀░█▀█░█▀█░░░█▀▀░█▀█░█▄█░░░█▀█░▀█▀░█░░░█░█░█▀█░█▀▀         |\n");
+    printf("|          ░█░█░█▀▀░█▀▀░█▀▄░█▀█░█░░░█▀█░█░█░░░█░░░█░█░█░█░░░█▀▀░░█░░█░░░█▀█░█▀█░▀▀█         |\n");
+    printf("|          ░▀▀▀░▀░░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░░░▀░░░▀▀▀░▀▀▀░▀░▀░▀░▀░▀▀▀         |\n");
     printLinha();
-    printf("|                          Escolha uma opcao:                            |\n");
+    printf("|                                    Escolha uma opcao:                                     |\n");
     opcoes();
 }
 //==============================================================================
@@ -190,8 +191,7 @@ int main(){
     while(escolha != 0){
         Stack P, P1, P2;
         printLinha();
-        printf("| [999] -> [Mostrar opcoes novamente]                                    |\n");
-        printf("| [ 0 ] -> [Encerrar programa]                                           |\n");
+        printf("|           [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]              |\n");
         printLinha();
         scanf("%d", &escolha);
         switch (escolha){
