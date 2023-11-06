@@ -64,12 +64,9 @@ int conjuntoVazio(Conjunto *C){
 int insereElementoConjunto(long int x, Conjunto *C){
     if(C != NULL && C->tamanho < MAX_ELEMENTOS && x < LONG_MAX && x > LONG_MIN){
         for(int i = 0; i < C->tamanho; i++){
-            if(C->elementos[i] == x){
-                return FALHA; //elemento ja existe no conjunto
-            }
+            if(C->elementos[i] == x) return FALHA; //elemento ja existe no conjunto
         }
-        C->elementos[C->tamanho] = x;
-        C->tamanho++;
+        C->elementos[C->tamanho] = x, C->tamanho++;
         return SUCESSO;
     }return FALHA;
 }
@@ -122,9 +119,7 @@ int menor(long int x, Conjunto *C){
 int pertenceConjunto(long int x, Conjunto *C){
     if(C != NULL){
         for(int i = 0; i < C->tamanho; i++){
-            if(C->elementos[i] == x){
-                return TRUE;
-            }
+            if(C->elementos[i] == x) return TRUE;
         }return FALSE;
     }return FALSE;
 }
@@ -133,9 +128,7 @@ int conjuntosIdenticos(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL && C1->tamanho == C2->tamanho){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
-            if(!pertenceConjunto(elemento, C2)){
-                return FALSE;
-            }
+            if(!pertenceConjunto(elemento, C2)) return FALSE;
         }return TRUE;
     }return FALSE;
 }
@@ -144,9 +137,7 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
-            if(!pertenceConjunto(elemento, C2)){
-                return FALSE;
-            }
+            if(!pertenceConjunto(elemento, C2)) return FALSE;
         }return TRUE;
     }return FALSE;
 }
@@ -158,9 +149,7 @@ Conjunto complemento(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C2->tamanho; i++){
             long int elemento = C2->elementos[i];
-            if(!pertenceConjunto(elemento, C1)){
-                insereElementoConjunto(elemento, &complemento);
-            }
+            if(!pertenceConjunto(elemento, C1)) insereElementoConjunto(elemento, &complemento);
         }
     }return complemento;
 }
@@ -186,9 +175,8 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
-            if(pertenceConjunto(elemento, C2)){
-                insereElementoConjunto(elemento, &interseccao);
-            }
+            if(pertenceConjunto(elemento, C2)) insereElementoConjunto(elemento, &interseccao);
+            
         }
     }return interseccao;
 }
@@ -200,9 +188,7 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
-            if(!pertenceConjunto(elemento, C2)){
-                insereElementoConjunto(elemento, &diferenca);
-            }
+            if(!pertenceConjunto(elemento, C2)) insereElementoConjunto(elemento, &diferenca);
         }
     }return diferenca;
 }
@@ -220,9 +206,7 @@ Conjunto conjuntoPartes(Conjunto *C) {
             criaConjunto(&resultado);
 
             for (int j = 0; j < n; j++) {
-                if ((i & (1 << j)) != 0) {
-                    insereElementoConjunto(C->elementos[j], &resultado);
-                }
+                if ((i & (1 << j)) != 0) insereElementoConjunto(C->elementos[j], &resultado);
             }mostraConjunto(&resultado, CRESCENTE);
         }
     }return resultado;
@@ -262,37 +246,29 @@ int destroiConjunto(Conjunto *C){
 }
 //Funcao pra printar linha :O
 void printLinha(){
-    printf("+------------------------------------------------------------------------+\n");
+    printf("+-------------------------------------------------------------------------------------------------------+\n");
 }
 //Funcao pra printar as opcões :O
 void opcoes(){
     printLinha();
-    printf("| [1 ] -> [Criar um conjunto C]                                          |\n");
-    printf("| [2 ] -> [Verificar se o conjunto C e vazio]                            |\n");
-    printf("| [3 ] -> [Inserir um elemento no conjunto C]                            |\n");
-    printf("| [4 ] -> [Excluir um elemento do conjunto C]                            |\n");
-    printf("| [5 ] -> [Mostrar os elementos do conjunto C]                           |\n");
-    printf("| [6 ] -> [Calcular a cardinalidade do conjunto C]                       |\n");
-    printf("| [7 ] -> [Verificar elementos maiores que um numero]                    |\n");
-    printf("| [8 ] -> [Verificar elementos menores que um numero]                    |\n");
-    printf("| [9 ] -> [Verificar pertinencia de um elemento]                         |\n");
-    printf("| [10] -> [Gerar conjunto das partes]                                    |\n");
-    printf("| [11] -> [Comparar conjuntos identicos]                                 |\n");
-    printf("| [12] -> [Identificar subconjunto]                                      |\n");
-    printf("| [13] -> [Gerar complemento de um conjunto]                             |\n");
-    printf("| [14] -> [Gerar uniao de dois conjuntos]                                |\n");
-    printf("| [15] -> [Gerar interseccao entre dois conjuntos]                       |\n");
-    printf("| [16] -> [Gerar diferenca entre dois conjuntos]                         |\n");
-    printf("| [17] -> [Copiar conjunto para outro]                                   |\n");
-    printf("| [18] -> [Destruir conjunto]                                            |\n");
+    printf("| [ 1] -> [Criar um conjunto C]                       | [18] -> [Destruir conjunto]                     |\n");
+    printf("| [ 2] -> [Verificar se o conjunto C é vazio]         | [10] -> [Gerar conjunto das partes]             |\n");
+    printf("| [ 3] -> [Inserir um elemento no conjunto C]         | [11] -> [Comparar conjuntos idênticos]          |\n");
+    printf("| [ 4] -> [Excluir um elemento do conjunto C]         | [12] -> [Identificar subconjunto]               |\n");
+    printf("| [ 5] -> [Mostrar os elementos do conjunto C]        | [13] -> [Gerar complemento de um conjunto]      |\n");
+    printf("| [ 6] -> [Calcular a cardinalidade do conjunto C]    | [14] -> [Gerar união de dois conjuntos]         |\n");
+    printf("| [ 7] -> [Verificar elementos maiores que um número] | [15] -> [Gerar interseção entre dois conjuntos] |\n");
+    printf("| [ 8] -> [Verificar elementos menores que um número] | [16] -> [Gerar diferença entre dois conjuntos]  |\n");
+    printf("| [ 9] -> [Verificar pertinência de um elemento]      | [17] -> [Copiar conjunto para outro]            |\n");
 }
 //Funcao pra printar boas vindas :O
 void boasVindas(){
     printLinha();
-    printf("|                    Bem-vindo ao menu de operacoes                      |\n");
-    printf("|                            com Conjuntos                               |\n");
+    printf("|            ░█▀█░█▀█░█▀▀░█▀█░█▀█░█▀▀░█▀█░█▀█░░░█▀▀░█▀█░█▄█░░░█▀▀░█▀█░▀▀█░█░█░█▀█░▀█▀░█▀█░█▀▀           |\n");
+    printf("|            ░█░█░█▀▀░█▀▀░█▀▄░█▀█░█░░░█▀█░█░█░░░█░░░█░█░█░█░░░█░░░█░█░░░█░█░█░█░█░░█░░█░█░▀▀█           |\n");
+    printf("|            ░▀▀▀░▀░░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░░░▀▀▀░▀▀▀░▀▀░░▀▀▀░▀░▀░░▀░░▀▀▀░▀▀▀           |\n");
     printLinha();
-    printf("|                          Escolha uma opcao:                            |\n");
+    printf("|                                         Escolha uma opcao:                                            |\n");
     opcoes();
 }
 //Funcao auxiliar pra criar o conjunto C1 e conjunto C2
@@ -342,8 +318,7 @@ int main(){
     while(escolha != 0){
         Conjunto C , C1, C2;
         printLinha();
-        printf("| [999] -> [Mostrar opcoes novamente]                                    |\n");
-        printf("| [ 0 ] -> [Encerrar programa]                                           |\n");
+        printf("|                [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                     |\n");
         printLinha();
         scanf("%d", &escolha);
         switch (escolha){
