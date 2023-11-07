@@ -229,9 +229,9 @@ void printLinha(){
 //Funcao auxiliar pra printar opcões
 void opcoes(){
     printLinha();
-    printf("| [ 1] -> [Criar uma data]                       | [ 9] -> [Exibir o mês da data]                           |\n");
-    printf("| [ 2] -> [Alterar o dia/mês/ano de uma data]    | [10] -> [Exibir o ano da data]                           |\n");
-    printf("| [ 3] -> [Criar uma cópia de uma data]          | [11] -> [Verificar se a data pertence a um ano bissexto] |\n");
+    printf("| [ 1] -> [Criar uma data]                       | [ 9] -> [Exibir o mes da data]                           |\n");
+    printf("| [ 2] -> [Alterar o dia/mes/ano de uma data]    | [10] -> [Exibir o ano da data]                           |\n");
+    printf("| [ 3] -> [Criar uma copia de uma data]          | [11] -> [Verificar se a data pertence a um ano bissexto] |\n");
     printf("| [ 4] -> [Imprimir uma data na tela]            | [12] -> [Verificar qual o dia da semana de uma data]     |\n");
     printf("| [ 5] -> [Destruir uma data]                    | [13] -> [Verificar quantos dias entre duas datas]        |\n");
     printf("| [ 6] -> [Retornar dias posteriores a uma data] | [14] -> [Verificar quantos meses entre duas datas]       |\n");

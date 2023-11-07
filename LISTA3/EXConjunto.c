@@ -252,14 +252,14 @@ void printLinha(){
 void opcoes(){
     printLinha();
     printf("| [ 1] -> [Criar um conjunto C]                       | [18] -> [Destruir conjunto]                     |\n");
-    printf("| [ 2] -> [Verificar se o conjunto C é vazio]         | [10] -> [Gerar conjunto das partes]             |\n");
-    printf("| [ 3] -> [Inserir um elemento no conjunto C]         | [11] -> [Comparar conjuntos idênticos]          |\n");
+    printf("| [ 2] -> [Verificar se o conjunto C e vazio]         | [10] -> [Gerar conjunto das partes]             |\n");
+    printf("| [ 3] -> [Inserir um elemento no conjunto C]         | [11] -> [Comparar conjuntos identicos]          |\n");
     printf("| [ 4] -> [Excluir um elemento do conjunto C]         | [12] -> [Identificar subconjunto]               |\n");
     printf("| [ 5] -> [Mostrar os elementos do conjunto C]        | [13] -> [Gerar complemento de um conjunto]      |\n");
-    printf("| [ 6] -> [Calcular a cardinalidade do conjunto C]    | [14] -> [Gerar união de dois conjuntos]         |\n");
-    printf("| [ 7] -> [Verificar elementos maiores que um número] | [15] -> [Gerar interseção entre dois conjuntos] |\n");
-    printf("| [ 8] -> [Verificar elementos menores que um número] | [16] -> [Gerar diferença entre dois conjuntos]  |\n");
-    printf("| [ 9] -> [Verificar pertinência de um elemento]      | [17] -> [Copiar conjunto para outro]            |\n");
+    printf("| [ 6] -> [Calcular a cardinalidade do conjunto C]    | [14] -> [Gerar uniao de dois conjuntos]         |\n");
+    printf("| [ 7] -> [Verificar elementos maiores que um numero] | [15] -> [Gerar intersecao entre dois conjuntos] |\n");
+    printf("| [ 8] -> [Verificar elementos menores que um numero] | [16] -> [Gerar diferenca entre dois conjuntos]  |\n");
+    printf("| [ 9] -> [Verificar pertinencia de um elemento]      | [17] -> [Copiar conjunto para outro]            |\n");
 }
 //Funcao pra printar boas vindas :O
 void boasVindas(){
@@ -316,7 +316,7 @@ int main(){
     boasVindas();
     int escolha, criadoC = 0;
     while(escolha != 0){
-        Conjunto C , C1, C2;
+        Conjunto C, C1, C2;
         printLinha();
         printf("|                [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                     |\n");
         printLinha();
