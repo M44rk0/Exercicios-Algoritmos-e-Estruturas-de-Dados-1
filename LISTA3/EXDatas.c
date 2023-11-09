@@ -62,9 +62,8 @@ int bissexto(int ano){
 // Funcao auxiliar pra calcular o numero de dias em um mês
 unsigned int diasNoMes(int mes, int ano) {
     unsigned int diasPorMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    if (mes == 2 && bissexto(ano)){
-        return 29;
-    }else{return diasPorMes[mes];}
+    return (mes == 2 && bissexto(ano)) ? 29 : diasPorMes[mes];
+
 }
 // Funcao pra somar os dias a uma data
 Data somaDiasData(Data d, unsigned int dias){
@@ -200,7 +199,9 @@ unsigned int obtemDiaSemanaData(Data d){
     j = ano / 100;
     k = ano % 100;
     h = (dia + 13 * (mes + 1) / 5 + k + k / 4 + j / 4 - 2 * j) % 7;
-    if (h < 0){h += 7;}
+    if (h < 0){
+        h += 7;
+    }
     return (h == 0) ? 7 : h;
 }
 //Funcao para imprimir uma data
@@ -221,7 +222,6 @@ char *imprimeData(Data d, char *formato){
         snprintf(dataFormatada, 11, "%02u%02u", d.dia, d.mes);
     }return dataFormatada;
 }
-
 //Funcao auxiliar pra printar linha
 void printLinha(){
     printf("+-----------------------------------------------------------------------------------------------------------+\n");
@@ -241,9 +241,16 @@ void opcoes(){
 //Funcao pra printar boas vindas :O
 void boasVindas(){
     printLinha();
-    printf("|                   ░█▀█░█▀█░█▀▀░█▀█░█▀█░█▀▀░█▀█░█▀█░░░█▀▀░█▀█░█▄█░░░█▀▄░█▀█░▀█▀░█▀█░█▀▀                    |\n");
-    printf("|                   ░█░█░█▀▀░█▀▀░█▀▄░█▀█░█░░░█▀█░█░█░░░█░░░█░█░█░█░░░█░█░█▀█░░█░░█▀█░▀▀█                    |\n");
-    printf("|                   ░▀▀▀░▀░░░▀▀▀░▀░▀░▀░▀░▀▀▀░▀░▀░▀▀▀░░░▀▀▀░▀▀▀░▀░▀░░░▀▀░░▀░▀░░▀░░▀░▀░▀▀▀                    |\n");
+printf("|                                                                               _       _                   |\n");
+printf("|                                                                              | |     | |                  |\n");
+printf("|         ___  _ __   ___ _ __ __ _  ___ __ _  ___     ___ ___  _ __ ___     __| | __ _| |_ __ _ ___        |\n");
+printf("|        / _ \\| '_ \\ / _ \\ '__/ _` |/ __/ _` |/ _ \\   / __/ _ \\| '_ ` _ \\   / _` |/ _` | __/ _` / __|       |\n");
+printf("|       | (_) | |_) |  __/ | | (_| | (__ (_| | (_) | | (__ (_) | | | | | | | (_| | (_| | |_ (_| \\__ \\       |\n");
+printf("|        \\___/| .__/ \\___|_|  \\__,_|\\___\\__,_|\\___/   \\___\\___/|_| |_| |_|  \\__,_|\\__,_|\\__\\__,_|___/       |\n");
+printf("|             | |                                                                                           |\n");
+printf("|             |_|                                                                                           |\n");
+
+
     printLinha();
     printf("|                                          Escolha uma opcao:                                               |\n");
     opcoes();
@@ -251,7 +258,6 @@ void boasVindas(){
 //==============================================================================
 // Arquivo ponto.c
 //==============================================================================
-
 int main(){
    boasVindas();
     int escolha, dataCriada = 0;
@@ -293,7 +299,7 @@ int main(){
                 unsigned int ano;
                 while(1){
                     scanf("%u", &ano);
-                    if(ano > 2200 || (mes == 2 && dia == 29 && !bissexto(ano))){
+                    if(ano > 2200 || ano < 1900 || (mes == 2 && dia == 29 && !bissexto(ano))){
                         printf("Erro, tente novamente\n");
                         printf("Mes: ");
                     }else{break;};
