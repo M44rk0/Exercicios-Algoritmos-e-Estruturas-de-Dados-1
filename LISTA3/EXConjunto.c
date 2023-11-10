@@ -1,16 +1,13 @@
 //==============================================================================
 // Arquivo conjunto.h
 //==============================================================================
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
 #include <math.h>
-
 //Define o tamanho maximo de elementos no conjunto
 #define MAX_ELEMENTOS 1000000 
-
 //Define as constantes
 #define SUCESSO 1
 #define FALHA 0
@@ -18,7 +15,6 @@
 #define FALSE 0 
 #define CRESCENTE 1
 #define DECRESCENTE 0
-
 //Define o cabecalho das funcoes
 typedef struct conjunto Conjunto;
 int criaConjunto(Conjunto *C);
@@ -39,11 +35,9 @@ Conjunto conjuntoPartes(Conjunto *C);
 void mostraConjunto(Conjunto *C, int ordem);
 int copiarConjunto(Conjunto *C1, Conjunto *C2);
 int destroiConjunto(Conjunto *C);
-
 //==============================================================================
 // Arquivo conjunto.c
 //==============================================================================
-
 //Define o struct Conjunto
 struct conjunto{
     int tamanho;
@@ -78,7 +72,6 @@ int excluirElementoConjunto(long int x, Conjunto *C){
         for(int i = 0; i<C->tamanho; i++){
             if(C->elementos[i] == x){
                 encontrado = TRUE;
-                //move os elementos a direita do elemento que vai ser excluido
                 for(int j = 0; j < C->tamanho - 1; j++){
                     C->elementos[j] = C->elementos[j+1];
                 }
@@ -146,7 +139,6 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
 Conjunto complemento(Conjunto *C1, Conjunto *C2){
     Conjunto complemento;
     criaConjunto(&complemento);
-
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C2->tamanho; i++){
             long int elemento = C2->elementos[i];
@@ -158,7 +150,6 @@ Conjunto complemento(Conjunto *C1, Conjunto *C2){
 Conjunto uniao(Conjunto *C1, Conjunto *C2){
     Conjunto uniao;
     criaConjunto(&uniao);
-
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             insereElementoConjunto(C1->elementos[i], &uniao);
@@ -172,7 +163,6 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2){
 Conjunto interseccao(Conjunto *C1, Conjunto *C2){
     Conjunto interseccao;
     criaConjunto(&interseccao);
-
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
@@ -185,7 +175,6 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
 Conjunto diferenca(Conjunto *C1, Conjunto *C2){
     Conjunto diferenca;
     criaConjunto(&diferenca);
-
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
@@ -193,16 +182,13 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
         }
     }return diferenca;
 }
-//Sinceramente essa aqui eu nem consegui pensar em como fazer 
-// um beijao pro GPT <3
+//Sinceramente essa aqui eu não consegui pensar em como fazer // um beijao pro GPT <3
 Conjunto conjuntoPartes(Conjunto *C) {
     Conjunto resultado;
-    criaConjunto(&resultado);
-    
+    criaConjunto(&resultado);  
     if (C != NULL) {
         int n = C->tamanho;
         int numSubconjuntos = pow(2, n);
-        
         for (int i = 0; i < numSubconjuntos; i++) {
             criaConjunto(&resultado);
 
@@ -265,8 +251,7 @@ void opcoes(){
 //Funcao pra printar boas vindas :O
 void boasVindas(){
     printLinha();
-    printf("                                                                                    _             _            \n");
-    printf("                                                                                   (_)           | |           \n");
+    printf("                                                                                                  _            \n");
     printf("  ___  _ __   ___ _ __ __ _  ___ __ _  ___     ___ ___  _ __ ___     ___ ___  _ __  _ _   _ _ __ | |_ ___  ___ \n");
     printf(" / _ \\| '_ \\ / _ \\ '__/ _` |/ __/ _` |/ _ \\   / __/ _ \\| '_ ` _ \\   / __/ _ \\| '_ \\| | | | | '_ \\| __/ _ \\/ __|\n");
     printf("| (_) | |_) |  __/ | | (_| | (__ (_| | (_) | | (__ (_) | | | | | | | (__ (_) | | | | | |_| | | | | |_ (_) \\__ \\ \n");
@@ -294,7 +279,13 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         long int elemento;
         printf("%d elemento: ", i+1);
         scanf("%ld", &elemento);
-        insereElementoConjunto(elemento, C1);
+        if(pertenceConjunto(elemento, C1)){
+            printf("Elemento ja pertence ao conjunto, insira um novo elemento: \n");
+            i--;
+        }
+        else{
+            insereElementoConjunto(elemento, C1);
+        }
     }
     printf("Quantos elementos em C2?: ");
     int quantidade2;
@@ -308,16 +299,20 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
     printf("Digite os elementos a serem inseridos em C2:\n");
     for(int i = 0; i<quantidade2; i++){
         long int elemento2;
-        printf("%d° elemento: ", i+1);
+        printf("%d elemento: ", i+1);
         scanf("%ld", &elemento2);
-        insereElementoConjunto(elemento2, C2);
+        if(pertenceConjunto(elemento2, C2)){
+            printf("Elemento ja pertence ao conjunto, insira um novo elemento: \n");
+            i--;
+        }
+        else{
+            insereElementoConjunto(elemento2, C2);
+        }
     }
 }
-
 //==============================================================================
 // Corpo Principal
 //==============================================================================
-
 int main(){
     boasVindas();
     int escolha, criadoC = 0;
@@ -471,8 +466,7 @@ int main(){
                     printf("Copiado com sucesso!\n");
                     mostraConjunto(&C2, CRESCENTE);
                 }else{printf("Erro na copia\n");
-                }
-                break;
+                }break;
             }
             case 18: {
                 printf("Qual conjunto destruir? (C = 0, C1 & C2 = 1): \n");
@@ -501,6 +495,6 @@ int main(){
                 printf("Opcao invalida. Tente novamente.\n");
                 break;
         }
-    }
+    } 
     return 0;
 }

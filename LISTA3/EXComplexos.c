@@ -121,18 +121,21 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar o complemento de C1 em relacao a C2
 Conjunto complemento(Conjunto *C1, Conjunto *C2){
+
     Conjunto complemento;
     criaConjunto(&complemento);
 
     if(C1 != NULL && C2 != NULL){
         for(int i = 0; i < C2->tamanho; i++){
             Complexo elemento = C2->elementos[i];
+            
             if(!pertenceConjunto(elemento, C1)) insereElementoConjunto(elemento, &complemento);
         }
     }return complemento;
 }
 //Funcao pra gerar a uniao de C1 com C2
 Conjunto uniao(Conjunto *C1, Conjunto *C2){
+
     Conjunto uniao;
     criaConjunto(&uniao);
 
@@ -147,6 +150,7 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar a interseccao de C1 com C2
 Conjunto interseccao(Conjunto *C1, Conjunto *C2){
+
     Conjunto interseccao;
     criaConjunto(&interseccao);
 
@@ -159,6 +163,7 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar a diferenca de C1 e C2
 Conjunto diferenca(Conjunto *C1, Conjunto *C2){
+
     Conjunto diferenca;
     criaConjunto(&diferenca);
 
@@ -242,6 +247,7 @@ Complexo lerComplexo(){
     if (resultado == 2){
         elemento.imaginario = elemento.real, elemento.real = 0;
     } 
+    
     else if (resultado != 3){
         printf("Formato de entrada invalido, tente novamente.\n");
         elemento.real = 0.0, elemento.imaginario = 0.0;
@@ -350,7 +356,7 @@ int main(){
             case 3: {
                 if (criadoC){
                     char c;
-                    scanf("%c", &c); // scan pra ler o enter dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
+                    scanf("%c", &c); // scan pra ler o 'enter' dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
                     Complexo elemento = lerComplexo();
                     if (elemento.real == 0.0 && elemento.imaginario == 0.0) {
                         break;
@@ -365,7 +371,7 @@ int main(){
             case 4: {
                 if(criadoC){
                     char c;
-                    scanf("%c", &c); // scan pra ler o enter dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
+                    scanf("%c", &c); // scan pra ler o 'enter' dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
                     Complexo elemento = lerComplexo();
                     if (elemento.real == 0.0 && elemento.imaginario == 0.0) {
                         break;
