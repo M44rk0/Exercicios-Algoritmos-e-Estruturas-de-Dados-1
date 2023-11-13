@@ -29,6 +29,7 @@ unsigned int numeroMesesDatas(Data d1, Data d2);
 unsigned int numeroAnosDatas(Data d1, Data d2);
 unsigned int obtemDiaSemanaData(Data d);
 char *imprimeData(Data d, char *formato);
+
 //==============================================================================
 // Arquivo ponto.c
 //==============================================================================
@@ -258,19 +259,20 @@ void boasVindas(){
 //==============================================================================
 int main(){
    boasVindas();
-    int escolha, dataCriada = 0;
+    int escolha;
+    Data *d = NULL, *copia = NULL;
     while(escolha != 0){
         printLinha();
         printf("|                  [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                       |\n");
         printLinha();
         scanf("%d", &escolha);
         switch (escolha){
-            Data *d = NULL, *copia = NULL;
             case 999: {
                 opcoes();
                 break;
             }
             case 0: {
+                printf("Encerrando programa.\n");
                 liberaData(d);
                 break;
             }
@@ -280,35 +282,34 @@ int main(){
                 while(1){
                     scanf("%u", &dia);
                     if(dia > 31){
-                        printf("Erro, tente novamente\n");
+                        printf("Erro, tente novamente.\n");
                         printf("Dia: ");
-                        }else{break;};
+                        }else break;
                 }
                 printf("Mes: ");
                 unsigned int mes;
                 while(1){
                     scanf("%u", &mes);
                     if(mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
-                        printf("Erro, tente novamente\n");
+                        printf("Erro, tente novamente.\n");
                         printf("Mes: ");
-                    }else{break;};
+                    }else break;
                 } 
                 printf("Ano: ");
                 unsigned int ano;
                 while(1){
                     scanf("%u", &ano);
                     if(ano > 2200 || ano < 1900 || (mes == 2 && dia == 29 && !bissexto(ano))){
-                        printf("Erro, tente novamente\n");
-                        printf("Mes: ");
-                    }else{break;};
+                        printf("Erro, tente novamente.\n");
+                        printf("Ano: ");
+                    }else break;
                 } 
                 d = criaData(dia, mes, ano);               
                 printf("Data %s criada com sucesso!\n", imprimeData(*d, "ddmmaaaa"));
-                dataCriada = 1;
                 break;
             }
             case 2: {
-                if(dataCriada){
+                if(d != NULL){
                     printf("Dia: ");
                     unsigned int dia;
                     while(1){
@@ -316,7 +317,7 @@ int main(){
                         if(dia > 31){
                             printf("Erro, tente novamente\n");
                             printf("Dia: ");
-                            }else{break;};
+                            }else break;
                     }
                     printf("Mes: ");
                     unsigned int mes;
@@ -325,7 +326,7 @@ int main(){
                         if(mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
                             printf("Erro, tente novamente\n");
                             printf("Mes: ");
-                        }else{break;};
+                        }else break;
                     } 
                     printf("Ano: ");
                     unsigned int ano;
@@ -334,82 +335,81 @@ int main(){
                         if(ano > 2200 || (mes == 2 && dia == 29 && !bissexto(ano))){
                             printf("Erro, tente novamente\n");
                             printf("Mes: ");
-                        }else{break;};
+                        }else break;
                     } 
                     atribuirData(d, dia, mes, ano);
-                    printf("Data alterada com sucesso\n");
+                    printf("Data alterada com sucesso.\n");
                 } else {
-                    printf("Data ainda nao criada\n");
+                    printf("Data ainda nao criada.\n");
                     break;
                 } break;
             }
             case 3: {
-                if(dataCriada){
+                if(d != NULL){
                     copia = copiaData(*d); 
-                    printf("Copia de [%s] realizada com sucesso\n", imprimeData(*copia, "ddmmaaaa"));
-                }else{printf("Data ainda nao criada\n");};
+                    printf("Copia de [%s] realizada com sucesso.\n", imprimeData(*copia, "ddmmaaaa"));
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 4: {
-                if(dataCriada){
+                if(d != NULL){
                     printf("Data: %s\n", imprimeData(*d, "ddmmaaaa"));
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 5: {
                 liberaData(d);
-                printf("Data destruida com sucesso\n");
-                dataCriada = 0;
+                printf("Data destruida com sucesso.\n");
                 break;
             }
             case 6: {
-                if(dataCriada){
+                if(d != NULL){
                     unsigned int dias;
                     printf("Quantos dias?: ");
                     scanf("%u", &dias);
                     copia = copiaData(*d);
                     printf("Data: %s\n", imprimeData(somaDiasData(*copia, dias), "ddmmaaaa"));
                     liberaData(copia);
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 7: {
-                if(dataCriada){
+                if(d != NULL){
                     unsigned int dias;
                     printf("Quantos dias?: ");
                     scanf("%u", &dias);
                     copia = copiaData(*d);
                     printf("Data: %s\n", imprimeData(subtrairDiasData(*copia, dias), "ddmmaaaa"));
                     liberaData(copia);
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 8: {
-                if(dataCriada){
+                if(d != NULL){
                     printf("Dia: %u\n", obtemDiaData(*d));
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 9: {
-                if(dataCriada){
+                if(d != NULL){
                     printf("Mes: %u\n", obtemMesData(*d));
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 10: {
-                if(dataCriada){
+                if(d != NULL){
                     printf("Ano: %u\n", obtemAnoData(*d));
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 11: {
-                if(dataCriada){
-                    (bissextoData(*d) == 1) ? printf("Ano bissexto\n") : printf("Nao e bissexto\n");
-                }else{printf("Data ainda nao criada\n");};
+                if(d != NULL){
+                    (bissextoData(*d) == 1) ? printf("Ano bissexto.\n") : printf("Nao e bissexto.\n");
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             case 12: {
-                if(dataCriada){
+                if(d != NULL){
                     switch(obtemDiaSemanaData(*d)){
                         case 1: printf("Domingo\n"); break;
                         case 2: printf("Segunda\n"); break;
@@ -419,11 +419,11 @@ int main(){
                         case 6: printf("Sexta\n"); break;
                         case 7: printf("Sabado\n"); break;
                     }
-                }else{printf("Data ainda nao criada\n");};
+                }else printf("Data ainda nao criada.\n");
                 break;
             }
             default:
-                printf("Opcao invalida\n");
+                printf("Opcao invalida.\n");
                 break;
         }
     }   

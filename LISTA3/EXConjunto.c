@@ -167,7 +167,6 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
         for(int i = 0; i < C1->tamanho; i++){
             long int elemento = C1->elementos[i];
             if(pertenceConjunto(elemento, C2)) insereElementoConjunto(elemento, &interseccao);
-            
         }
     }return interseccao;
 }
@@ -272,7 +271,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         if(quantidade <= 0){
             printf("Quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em C1?: ");
-        }else{break;};
+        }else break;
     }
     printf("Digite os elementos a serem inseridos em C1:\n");
     for(int i = 0; i<quantidade; i++){
@@ -294,7 +293,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         if(quantidade2 <= 0){
             printf("Quantidade invalida, tente novamente\n");
             printf("Quantos elementos em C2?: ");
-        }else{break;};
+        }else break;
     }
     printf("Digite os elementos a serem inseridos em C2:\n");
     for(int i = 0; i<quantidade2; i++){
@@ -329,16 +328,16 @@ int main(){
             }
             case 1: {
                 if(criaConjunto(&C) == 1){
-                    printf("Conjunto criado com sucesso\n");
+                    printf("Conjunto criado com sucesso.\n");
                     criadoC = 1; 
-                }else{printf("Erro na criacao\n");
+                }else{printf("Erro na criacao.\n");
                 }break;
             }
             case 2: {
                 if(criadoC){
-                    (conjuntoVazio(&C) == 1) ? printf("Conjunto e vazio\n") : printf("Conjunto nao e vazio\n");
+                    (conjuntoVazio(&C) == 1) ? printf("Conjunto e vazio.\n") : printf("Conjunto nao e vazio.\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 3: {
@@ -346,9 +345,9 @@ int main(){
                     long int elemento;
                     printf("Digite o elemento a ser inserido no conjunto: ");
                     scanf("%ld", &elemento);
-                    (insereElementoConjunto(elemento, &C) == 1) ? printf("Elemento inserido com sucesso\n") : printf("Erro na insercao do elemento\n");
+                    (insereElementoConjunto(elemento, &C) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 4: {
@@ -356,9 +355,9 @@ int main(){
                     long int elemento;
                     printf("Digite o elemento a ser excluido do conjunto: ");
                     scanf("%ld", &elemento);
-                    (excluirElementoConjunto(elemento, &C) == 1) ? printf("Elemento excluido com sucesso\n") : printf("Erro na exclusao do elemento\n");
+                    (excluirElementoConjunto(elemento, &C) == 1) ? printf("Elemento excluido com sucesso.\n") : printf("Erro na exclusao do elemento.\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 5: {
@@ -377,14 +376,14 @@ int main(){
                             printf("Forma invalida, tente novamente!\n");
                             break;
                 }break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break; 
             }
             case 6: {
                 if(criadoC){
                     printf("Tamanho do conjunto: %d\n", tamanhoConjunto(&C));
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 7: {
@@ -395,7 +394,7 @@ int main(){
                     printf("Elementos maiores que o numero dado: %d\n", maior(elemento, &C));
                     printf("(O valor 0 (zero) indica que todos os elementos de C sao maiores que x)\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado ou e vazio\n");
+                }printf("Erro, conjunto C ainda nao foi criado ou e vazio.\n");
                 break;
             }
             case 8: {
@@ -406,7 +405,7 @@ int main(){
                     printf("Elementos menores que o numero dado: %d\n", menor(elemento, &C));
                     printf("(O valor 0 (zero) indica que todos os elementos de C sao maiores que x)\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado ou e vazio\n");
+                }printf("Erro, conjunto C ainda nao foi criado ou e vazio.\n");
                 break;
             }
             case 9: {
@@ -414,26 +413,26 @@ int main(){
                     long int elemento;
                     printf("Digite um elemento: ");
                     scanf("%ld", &elemento);
-                    (pertenceConjunto(elemento, &C) == 1) ? printf("O elemento dado pertence ao conjunto\n") : printf("O elemento dado nao pertence ao conjunto\n");
+                    (pertenceConjunto(elemento, &C) == 1) ? printf("O elemento dado pertence ao conjunto.\n") : printf("O elemento dado nao pertence ao conjunto.\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado ou e vazio\n");
+                }printf("Erro, conjunto C ainda nao foi criado ou e vazio.\n");
                 break;
             }
             case 10: {
                 if(criadoC){
                     conjuntoPartes(&C);
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado\n");
+                }printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 11: {
                 AuxiliarCriarC1C2(&C1, &C2);
-                (conjuntosIdenticos(&C1, &C2) == 1) ? printf("Os conjuntos sao identicos\n") : printf("Os conjuntos nao sao identicos\n");
+                (conjuntosIdenticos(&C1, &C2) == 1) ? printf("Os conjuntos sao identicos.\n") : printf("Os conjuntos nao sao identicos.\n");
                 break;
             }
             case 12: {
                 AuxiliarCriarC1C2(&C1, &C2);
-                (subConjunto(&C1, &C2) == 1) ? printf("C1 e subconjunto de C2\n") : printf("C1 nao e subconjunto de C2\n");
+                (subConjunto(&C1, &C2) == 1) ? printf("C1 e subconjunto de C2.\n") : printf("C1 nao e subconjunto de C2.\n");
                 break;
             }
             case 13: {
@@ -465,7 +464,7 @@ int main(){
                 if(copiarConjunto(&C1, &C2) == 1){
                     printf("Copiado com sucesso!\n");
                     mostraConjunto(&C2, CRESCENTE);
-                }else{printf("Erro na copia\n");
+                }else{printf("Erro na copia.\n");
                 }break;
             }
             case 18: {
@@ -475,11 +474,11 @@ int main(){
                 switch (opcao){
                 case 0: {
                     criadoC = 0;
-                    (destroiConjunto(&C) == 1) ? printf("Conjunto C destruido com sucesso\n") : printf("Erro na destruicao do Conjunto C\n");
+                    (destroiConjunto(&C) == 1) ? printf("Conjunto C destruido com sucesso.\n") : printf("Erro na destruicao do Conjunto C.\n");
                     break;
                 }
                 case 1: {
-                    (destroiConjunto(&C1) == 1 && destroiConjunto(&C2) == 1) ? printf("Conjunto C1 e C2 destruidos com sucesso\n") : printf("Erro na destruicao dos Conjuntos\n");
+                    (destroiConjunto(&C1) == 1 && destroiConjunto(&C2) == 1) ? printf("Conjunto C1 e C2 destruidos com sucesso.\n") : printf("Erro na destruicao dos Conjuntos.\n");
                     break;
                 }
                 default:
@@ -488,6 +487,7 @@ int main(){
                 }break;
             }
             case 0: {
+                printf("Encerrando programa.\n");
                 destroiConjunto(&C), destroiConjunto(&C1), destroiConjunto(&C2);
                 break;
             }

@@ -27,6 +27,7 @@ int copy(Stack *P1, Stack *P2);
 //==============================================================================
 // Arquivo pilha.c
 //==============================================================================
+
 //Definindo o struct stack(Pilha)
 struct stack{
     long int *conteudo;
@@ -118,8 +119,7 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade <= 0){
             printf("quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em P1?: ");
-        }else{
-            break;};
+        }else break;
     }
     printf("Digite os elementos a serem inseridos em P1:\n");
     for(int i = 0; i<quantidade; i++){
@@ -135,8 +135,7 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade2 <= 0){
             printf("quantidade invalida, tente novamente\n");
             printf("Quantos elementos em P2?: ");
-        }else{
-            break;};
+        }else break;
     }
     printf("Digite os elementos a serem inseridos em P2:\n");
     for(int i = 0; i<quantidade2; i++){
@@ -201,16 +200,16 @@ int main(){
             }
             case 1: {
                 if(create(&P) == 1){
-                    printf("Pilha criada\n");
+                    printf("Pilha criada.\n");
                     criadoP = 1; 
-                }else{printf("Erro na criacao\n");
-                }break;
+                }else printf("Erro na criacao.\n");
+                break;
             }
             case 2: {
                 if(criadoP){
-                    (isEmpty(&P) == 1) ? printf("Pilha vazia\n") : printf("Pilha nao e vazia\n");
+                    (isEmpty(&P) == 1) ? printf("Pilha vazia.\n") : printf("Pilha nao e vazia.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada\n");
+                }printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 3: {
@@ -218,16 +217,16 @@ int main(){
                     long int elemento;
                     printf("Digite o elemento a ser inserido na Pilha: ");
                     scanf("%ld", &elemento);
-                    (push(&P, elemento) == 1) ? printf("Elemento inserido com sucesso\n") : printf("Erro na insercao do elemento\n");
+                    (push(&P, elemento) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada\n");
+                }printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 4: {
                 if(criadoP){
-                    (pop(&P) == 1) ? printf("Elemento removido com sucesso\n") : printf("Erro na remocao do elemento\n");
+                    (pop(&P) == 1) ? printf("Elemento removido com sucesso.\n") : printf("Erro na remocao do elemento.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada\n");
+                }printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 5: {
@@ -243,30 +242,30 @@ int main(){
                             show(&P, TOP);
                             break;
                         default:
-                            printf("Opcao invalida\n");
+                            printf("Opcao invalida.\n");
                             break;
                     }break;
-                }printf("Erro, Pilha P ainda nao foi criada\n");
+                }printf("Erro, Pilha P ainda nao foi criada.\n");
                 break; 
             }
             case 6: {
                 if(criadoP){
                     printf("Tamanho do Pilha P: %ld\n", size(&P));
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada\n");
+                }printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 7: {
                 createP1P2(&P1, &P2);
-                (isEqual(&P1, &P2) == 1) ? printf("As pilhas sao identicas\n") : printf("As pilhas nao sao identicas\n");
+                (isEqual(&P1, &P2) == 1) ? printf("As pilhas sao identicas.\n") : printf("As pilhas nao sao identicas.\n");
                 break;
             }
             case 8: {
                 createP1P2(&P1, &P2);
                 if(copy(&P1, &P2) == 1){
-                    printf("Copiado com sucesso\n");
+                    printf("Copiado com sucesso.\n");
                     show(&P2, TOP);
-                }else{printf("Erro na copia\n");
+                }else{printf("Erro na copia.\n");
                 }break;
             }
             case 9: {
@@ -276,11 +275,11 @@ int main(){
                 switch (opcao){
                 case 0: {
                     criadoP = 0;
-                    (destroy(&P) == 1) ? printf("Pilha P destruida com sucesso!\n") : printf("Erro na destruicao da Pilha P\n");
+                    (destroy(&P) == 1) ? printf("Pilha P destruida com sucesso!\n") : printf("Erro na destruicao da Pilha P.\n");
                     break;
                 }
                 case 1: {
-                    (destroy(&P1) == 1 && destroy(&P2) == 1) ? printf("Pilha P1 e P2 destruidas com sucesso\n") : printf("Erro na destruicao das Pilhas\n");
+                    (destroy(&P1) == 1 && destroy(&P2) == 1) ? printf("Pilha P1 e P2 destruidas com sucesso.\n") : printf("Erro na destruicao das Pilhas.\n");
                     break;
                 }
                 default:
@@ -289,6 +288,7 @@ int main(){
                 }break;
             }
             case 0: {
+                printf("Encerrando programa.\n");
                 destroy(&P), destroy(&P1), destroy(&P2);
                 break;
             }
