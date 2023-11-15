@@ -223,6 +223,69 @@ char *imprimeData(Data d, char *formato){
         snprintf(dataFormatada, 11, "%02u%02u", d.dia, d.mes);
     }return dataFormatada;
 }
+//Funcao auxiliar pra criar duas datas
+void criaDataAux(Data **d1, Data **d2){
+    printf("Digite as informacoes da primeira data:\n");
+    
+    printf("Dia: ");
+    unsigned int dia;
+    while (1){
+        scanf("%u", &dia);
+        if (dia > 31){
+            printf("Erro, tente novamente.\n");
+            printf("Dia: ");
+        } else break;
+    }
+    printf("Mes: ");
+    unsigned int mes;
+    while (1){
+        scanf("%u", &mes);
+        if (mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+            printf("Erro, tente novamente.\n");
+            printf("Mes: ");
+        } else break;
+    }
+    printf("Ano: ");
+    unsigned int ano;
+    while (1){
+        scanf("%u", &ano);
+        if (ano > 2200 || ano < 1900 || (mes == 2 && dia == 29 && !bissexto(ano))){
+            printf("Erro, tente novamente.\n");
+            printf("Ano: ");
+        } else break;
+    }
+    *d1 = criaData(dia, mes, ano);
+    printf("Data %s criada com sucesso!\n", imprimeData(**d1, "ddmmaaaa"));
+
+    printf("Digite as informacoes da segunda data:\n");
+    printf("Dia: ");
+    while (1){
+        scanf("%u", &dia);
+        if (dia > 31){
+            printf("Erro, tente novamente.\n");
+            printf("Dia: ");
+        } else break;
+    }
+    printf("Mes: ");
+    while (1){
+        scanf("%u", &mes);
+        if (mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+            printf("Erro, tente novamente.\n");
+            printf("Mes: ");
+        } else break;
+    }
+    printf("Ano: ");
+    while (1) {
+        scanf("%u", &ano);
+        if (ano > 2200 || ano < 1900 || (mes == 2 && dia == 29 && !bissexto(ano))){
+            printf("Erro, tente novamente.\n");
+            printf("Ano: ");
+        } else break;
+    }
+    *d2 = criaData(dia, mes, ano);
+    printf("Data %s criada com sucesso!\n", imprimeData(**d2, "ddmmaaaa"));
+}
+
 //Funcao auxiliar pra printar linha
 void printLinha(){
     printf("+-----------------------------------------------------------------------------------------------------------+\n");
@@ -237,7 +300,7 @@ void opcoes(){
     printf("| [ 5] -> [Destruir uma data]                    | [13] -> [Verificar quantos dias entre duas datas]        |\n");
     printf("| [ 6] -> [Retornar dias posteriores a uma data] | [14] -> [Verificar quantos meses entre duas datas]       |\n");
     printf("| [ 7] -> [Retornar dias anteriores a uma data]  | [15] -> [Verificar quantos anos entre duas datas]        |\n");
-    printf("| [ 8] -> [Exibir o dia da data]                 |                                                          |\n");
+    printf("| [ 8] -> [Exibir o dia da data]                 | [16] -> [Comparar duas datas]                            |\n");
 }
 //Funcao pra printar boas vindas :O
 void boasVindas(){
@@ -260,7 +323,7 @@ void boasVindas(){
 int main(){
    boasVindas();
     int escolha;
-    Data *d = NULL, *copia = NULL;
+    Data *d = NULL, *d1 = NULL, *d2 = NULL, *copia = NULL;
     while(escolha != 0){
         printLinha();
         printf("|                  [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                       |\n");
@@ -290,7 +353,7 @@ int main(){
                 unsigned int mes;
                 while(1){
                     scanf("%u", &mes);
-                    if(mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+                    if(mes > 12 || (mes == 2 && dia > 29)){
                         printf("Erro, tente novamente.\n");
                         printf("Mes: ");
                     }else break;
@@ -420,6 +483,43 @@ int main(){
                         case 7: printf("Sabado\n"); break;
                     }
                 }else printf("Data ainda nao criada.\n");
+                break;
+            }
+            case 13: {
+                criaDataAux(&d1, &d2);
+                unsigned int dias = numeroDiasDatas(*d1, *d2);
+                printf("Diferenca de %u dia(s)\n", dias);
+                free(d1), free(d2);
+                break;
+            }
+            case 14: {
+                criaDataAux(&d1, &d2);
+                unsigned int meses = numeroMesesDatas(*d1, *d2);
+                printf("Diferenca de %u mes(es)\n", meses);
+                free(d1), free(d2);
+                break;
+            }
+            case 15: {
+                criaDataAux(&d1, &d2);
+                unsigned int anos = numeroAnosDatas(*d1, *d2);
+                printf("Diferenca de %u ano(s)\n", anos);
+                free(d1), free(d2);
+                break;
+            }
+            case 16: {
+                criaDataAux(&d1, &d2);
+                int comparar = comparaData(*d1, *d2);
+                switch(comparar){
+                    case 1:
+                        printf("D1 é maior que D2\n");
+                        break;
+                    case -1:
+                        printf("D1 é menor que D2\n");
+                        break;
+                    case 0:
+                        printf("D1 é igual a D2\n");
+                        break;
+                }
                 break;
             }
             default:
