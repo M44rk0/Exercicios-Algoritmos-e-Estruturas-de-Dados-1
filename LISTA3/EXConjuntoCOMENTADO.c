@@ -39,21 +39,9 @@ int destroiConjunto(Conjunto *C);
 // Arquivo conjunto.c
 //==============================================================================
 
-/* Seguinte, o que é a porra de um TAD? é basicamente e resumidamente a possibilidade de criar um novo tipo de dado, e as operações com esse dado.
+/* Seguinte, o que é a porra de um TAD(TIPO ABSTRATO DE DADOS)? é basicamente e resumidamente a possibilidade de criar um novo tipo de dado, e as operações com esse dado.
 Assim como tem o Int, o Double, e por aí vai, com o TAD tu cria o tipo que tu quiser.
 Quero um tipo de dado 'Aluno', tranquilo, um aluno tem matricula, nome e email, logo... */
-
-/* Breve spoiler que tu não pediu mas caso passe nessa matéria vai ser útil no próximo semestre. 
-Em C, o TAD é um conceito muito mais simplificado.
-Em orientação a objetos, o TAD vai ser um objeto, e as funções são os métodos.
-Em C é bem merda o conceito mas nas outras linguagens isso faz mais sentido e a orientação a objetos é mais legal, 
-tem Herança, Polimorfismo, escapsulamento e abstração... parece complicado,
-mas é tranquilo de explicar, consigo usar tua vó, tua mãe e tua irmã de exemplo, 
-enfim, se ler isso aqui eu explico na sala.
-
-Dito isso, C é uma merda :D 
-
-Continuando...*/
 
 typedef struct aluno{ // aluno é o nome do tipo que tu quer criar
     unsigned int matricula; //( unsigned = sem sinal ) por que matricula negativa é foda
@@ -61,12 +49,22 @@ typedef struct aluno{ // aluno é o nome do tipo que tu quer criar
     char *email;   // char de novo, vambora.
 }Aluno; // e Aluno com maiusculo é o "apelido" desse tipo aluno, mas continua sendo Aluno, no fim, tu vai usar Aluno pra declarar.
 
-//Dito isso, vamo pro resto desse cacete
+/* Breve spoiler que tu não pediu mas que vai ser útil no próximo semestre. 
+Em C, o TAD é um conceito muito mais simplificado.
+Em orientação a objetos, o TAD vai ser um objeto, e as funções são os métodos.
+Em C é bem merda o conceito mas nas outras linguagens isso faz mais sentido e a orientação a objetos é mais legal, 
+tem Herança, Polimorfismo, escapsulamento e abstração... parece complicado,
+mas é tranquilo de explicar, talvez eu consiga usar tua vó, tua mãe e tua irmã de exemplo, 
+enfim, se ler isso aqui eu explico na sala.
+
+Dito isso, C é uma merda :D 
+
+Continuando...*/
 
 //Define o struct Conjunto
 
 //Aqui tu vai definir um conjunto, como eu já fiz um typedef ali em cima pq precisa separar essa merda, 
-//aqui tu vai só passar o struct conjunto e os dados, pq o apelido dele tá declarado ali em cima.
+//aí é só passar o struct conjunto e os dados, pq o apelido dele tá declarado ali em cima.
 
 struct conjunto{
     int tamanho; //tamanho pra ter como adicionar/remover/ e pasmem, saber o tamanho do conjunto
@@ -183,7 +181,7 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
     }return FALSE;
 }
 //Funcao pra gerar o complemento de C1 em relacao a C2
-Conjunto complemento(Conjunto *C1, Conjunto *C2){ //Aqui ele vai retonar um conjunto pronto, então o SUCESSO e FALHA vai pro caralho :D
+Conjunto complemento(Conjunto *C1, Conjunto *C2){ // Aqui ele vai retonar um conjunto pronto, então o SUCESSO e FALHA vai pro caralho :D
     Conjunto complemento;
     criaConjunto(&complemento); //Cria um conjunto complemento, IZI
     if(C1 != NULL && C2 != NULL){
@@ -246,7 +244,7 @@ Conjunto conjuntoPartes(Conjunto *C) {//kkkkk num vo explica
     }return resultado;
 }
 //Funcao pra mostrar os elementos no conjunto
-void mostraConjunto(Conjunto *C, int ordem){ //Aqui ele só printa, tranquilinho, se for CRESCENTE é de cima pa baixo, e DECRESCENTE, de baixo pa cima
+void mostraConjunto(Conjunto *C, int ordem){ //Aqui ele só printa, tranquilinho, se for CRESCENTE é de da esquerda pa direita, e DECRESCENTE, da direita pa esquerda
     if(C != NULL){
         if(ordem == CRESCENTE){
             printf("{");
@@ -282,12 +280,12 @@ int destroiConjunto(Conjunto *C){ //Destroi é pra limpar o que tá salvo na mem
 
 void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){ 
     /* Essa aqui é autoexplicativa, ela serve pra criar dois conjuntos pra aquelas operações que precisam de dois conjuntos.
-    Eu poderia só criar mais um, e usar as funções com o conjunto C e esse mais um.
-    Mas eu num quis, então eu sempre crio duas novas pra cada operação, e cada vez, o C1 & C2 novos substituem o antigo.
+    Eu poderia só criar mais um, e usar as funções com o conjunto C e esse mais um. Mas eu num quis.
+    Então eu sempre crio duas novas pra cada operação, e cada vez, o C1 & C2 novos substituem o antigo.
     Eu fiz a função tbm pq, sem ela, eu teria que repetir essa caralhada de código aí pra cada operação com dois conjuntos lá no menu, e isso não é legal.
     E aí com ela aqui, eu só preciso de uma linha */
     criaConjunto(C1), criaConjunto(C2);
-    printf("Quantos elementos em C1?: "); //E a diferença é que aqui eu posso escolher quantos elementos eu quero mete no conjunto, no conjunto C um por vez
+    printf("Quantos elementos em C1?: "); //E a diferença é que aqui eu posso escolher quantos elementos eu quero mete no conjunto, no conjunto C é um por vez
     int quantidade;
     while(1){
         scanf("%d", &quantidade);
@@ -372,7 +370,7 @@ void boasVindas(){
 int main(){
     boasVindas(); //Funçãozinha ali pra printar bonitinho
     int escolha, criadoC = 0;
-    while(escolha != 0){
+    while(escolha != 0){ //Menuzão infinito até que o mano digite 0
         Conjunto C, C1, C2; //Define aqui os conjuntos e pá, pq ngm é de ferro
         printLinha();
         printf("|                   [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                        |\n");
@@ -394,7 +392,9 @@ int main(){
                 if(criadoC){ //E aí se for criado ele executa a função, e se não for...
                     (conjuntoVazio(&C) == 1) ? printf("Conjunto e vazio.\n") : printf("Conjunto nao e vazio.\n"); 
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado.\n"); //...Ele printa que não vai rolar pq não tem conjunto, sem isso aqui o código ia travar e fechar sozinho
+                }printf("Erro, conjunto C ainda nao foi criado.\n"); 
+                //...Ele printa que não vai rolar pq não tem conjunto, sem isso aqui,
+                //...ia rodar com um conjunto inexsitente, e o código ia travar e explodir
                 break;
             }
             case 3: {
@@ -483,7 +483,7 @@ int main(){
                 break;
             }
             case 11: {
-                AuxiliarCriarC1C2(&C1, &C2);
+                AuxiliarCriarC1C2(&C1, &C2);//Aqui cria os dois conjuntos e pá
                 (conjuntosIdenticos(&C1, &C2) == 1) ? printf("Os conjuntos sao identicos.\n") : printf("Os conjuntos nao sao identicos.\n");
                 break;
             }
@@ -524,7 +524,7 @@ int main(){
                 }else{printf("Erro na copia.\n");
                 }break;
             }
-            case 18: {
+            case 18: {//Aqui tu escolhe qual q quer destruir e limpar a mémoria
                 printf("Qual conjunto destruir? (C = 0, C1 & C2 = 1): \n");
                 int opcao;
                 scanf("%d", &opcao);
@@ -543,13 +543,13 @@ int main(){
                     break;
                 }break;
             }
-            case 0: {
+            case 0: {//E aqui encerra o programa e destroi todos os conjuntos :D
                 printf("Encerrando programa.\n");
                 destroiConjunto(&C), destroiConjunto(&C1), destroiConjunto(&C2);
                 break;
             }
             default:
-                printf("Opcao invalida. Tente novamente.\n");
+                printf("Opcao invalida. Tente novamente.\n"); //E esse aqui é um caso default, se tu tentar escolher um case fora dos que tão definidos ele te joga pro inicio
                 break;
         }
     } 
