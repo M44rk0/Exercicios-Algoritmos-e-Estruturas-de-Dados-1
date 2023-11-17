@@ -56,7 +56,7 @@ int criaConjunto(Conjunto *C){
         C->elementos = (Complexo *)malloc(MAX_ELEMENTOS * sizeof(Complexo));
         C->tamanho = 0;
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
 //Funcao pra ver se o conjunto esta vazio
 int conjuntoVazio(Conjunto *C){
@@ -70,7 +70,7 @@ int insereElementoConjunto(Complexo x, Conjunto *C){
         }
         C->elementos[C->tamanho] = x, C->tamanho++;
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
 //Funcao para excluir um elemento
 int excluirElementoConjunto(Complexo x, Conjunto *C){
@@ -86,8 +86,8 @@ int excluirElementoConjunto(Complexo x, Conjunto *C){
                 C->tamanho--;
                 break;
             }
-        }return encontrado ? SUCESSO : FALHA;
-    }return FALHA;
+        } return encontrado ? SUCESSO : FALHA;
+    } return FALHA;
 }
 //Funcao para retornar o tamanho
 int tamanhoConjunto(Conjunto *C){
@@ -98,8 +98,8 @@ int pertenceConjunto(Complexo x, Conjunto *C){
     if(C != NULL){
         for(int i = 0; i < C->tamanho; i++){
             if(C->elementos[i].real == x.real && C->elementos[i].imaginario == x.imaginario) return TRUE;
-        }return FALSE;
-    }return FALSE;
+        } return FALSE;
+    } return FALSE;
 }
 //Funcao pra comparar se os conjuntos sao idênticos
 int conjuntosIdenticos(Conjunto *C1, Conjunto *C2){
@@ -107,8 +107,8 @@ int conjuntosIdenticos(Conjunto *C1, Conjunto *C2){
         for(int i = 0; i < C1->tamanho; i++){
             Complexo elemento = C1->elementos[i];
             if(!pertenceConjunto(elemento, C2)) return FALSE;
-        }return TRUE;
-    }return FALSE;
+        } return TRUE;
+    } return FALSE;
 }
 //Funcao pra verificar se C1 e subconjunto de C2
 int subConjunto(Conjunto *C1, Conjunto *C2){
@@ -116,8 +116,8 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
         for(int i = 0; i < C1->tamanho; i++){
             Complexo elemento = C1->elementos[i];
             if(!pertenceConjunto(elemento, C2)) return FALSE;
-        }return TRUE;
-    }return FALSE;
+        } return TRUE;
+    } return FALSE;
 }
 //Funcao pra gerar o complemento de C1 em relacao a C2
 Conjunto complemento(Conjunto *C1, Conjunto *C2){
@@ -130,7 +130,7 @@ Conjunto complemento(Conjunto *C1, Conjunto *C2){
             Complexo elemento = C2->elementos[i];
             if(!pertenceConjunto(elemento, C1)) insereElementoConjunto(elemento, &complemento);
         }
-    }return complemento;
+    } return complemento;
 }
 //Funcao pra gerar a uniao de C1 com C2
 Conjunto uniao(Conjunto *C1, Conjunto *C2){
@@ -145,7 +145,7 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2){
         for(int i = 0; i < C2->tamanho; i++){
             insereElementoConjunto(C2->elementos[i], &uniao);
         }
-    }return uniao;
+    } return uniao;
 }
 //Funcao pra gerar a interseccao de C1 com C2
 Conjunto interseccao(Conjunto *C1, Conjunto *C2){
@@ -158,7 +158,7 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
             Complexo elemento = C1->elementos[i];
             if(pertenceConjunto(elemento, C2)) insereElementoConjunto(elemento, &interseccao);           
         }
-    }return interseccao;
+    } return interseccao;
 }
 //Funcao pra gerar a diferenca de C1 e C2
 Conjunto diferenca(Conjunto *C1, Conjunto *C2){
@@ -171,7 +171,7 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
             Complexo elemento = C1->elementos[i];
             if(!pertenceConjunto(elemento, C2)) insereElementoConjunto(elemento, &diferenca);
         }
-    }return diferenca;
+    } return diferenca;
 }
 //Funcao pra copiar um conjunto para o outro
 int copiarConjunto(Conjunto *C1, Conjunto *C2){
@@ -180,43 +180,57 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2){
         for (int i = 0; i < C1->tamanho; i++){
             C2->elementos[i] = C1->elementos[i];
         }return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
-// Funcao para destruir um conjunto
+// Funcao pra destruir um conjunto
 int destroiConjunto(Conjunto *C){
     if (C != NULL){
         C->tamanho = 0;
         free(C->elementos);
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
-//Funcao para mostrar o conjunto
+//Funcao pra mostrar o conjunto
 void mostraConjunto(Conjunto *C, int ordem){
     if(C != NULL){
         if(ordem == CRESCENTE){
             printf("{");
+
             for(int i = 0; i < C->tamanho; i++){
                 if(C->elementos[i].real == 0){
-                    printf("%0.lfi, ", C->elementos[i].imaginario);
-                }else if(C->elementos[i].imaginario < 0){
-                    printf("%.0lf%.0lfi, ", C->elementos[i].real, C->elementos[i].imaginario);
-                }else{
-                    printf("%.0lf+%.0lfi, ", C->elementos[i].real, C->elementos[i].imaginario);
+                    printf("%0.lfi", C->elementos[i].imaginario);
+                }
+                else if(C->elementos[i].imaginario < 0){
+                    printf("%.0lf%.0lfi", C->elementos[i].real, C->elementos[i].imaginario);
+                }
+                else{
+                    printf("%.0lf+%.0lfi", C->elementos[i].real, C->elementos[i].imaginario);
+                }
+                if(i < C->tamanho - 1){
+                    printf(", ");
                 }
             }
         }else if (ordem == DECRESCENTE){
             printf("{");
+            
             for(int i = C->tamanho - 1; i >= 0; i--){
                 if(C->elementos[i].real == 0){
-                    printf("%0.lfi, ", C->elementos[i].imaginario);
-                }else{
-                    printf("%.0lf %.0lfi, ", C->elementos[i].real, C->elementos[i].imaginario);
+                    printf("%0.lfi", C->elementos[i].imaginario);
+                }
+                else if(C->elementos[i].imaginario < 0){
+                    printf("%.0lf%.0lfi", C->elementos[i].real, C->elementos[i].imaginario);
+                }
+                else{
+                    printf("%.0lf+%.0lfi", C->elementos[i].real, C->elementos[i].imaginario);
+                }
+                if(i < C->tamanho - 1){
+                    printf(", ");
                 }
             }
         }printf("}\n");
     }
 }
-//Funcao auxiliar para remover os espacos de uma String
+//Funcao auxiliar pra remover os espacos de uma String
 void removerEspacos(char *entrada, char *saida) {
     int i, j = 0;
 
@@ -227,7 +241,7 @@ void removerEspacos(char *entrada, char *saida) {
     }
     saida[j] = '\0';
 }
-//Funcao auxiliar para ler um complexo
+//Funcao auxiliar pra ler um complexo
 Complexo lerComplexo(){
     char entrada[MAX_ELEMENTOS], saida[MAX_ELEMENTOS];
     Complexo elemento;
@@ -253,7 +267,7 @@ Complexo lerComplexo(){
     }
     return elemento;
 }
-//Funcao auxiliar para criar dois conjuntos
+//Funcao auxiliar pra criar dois conjuntos
 void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
     criaConjunto(C1), criaConjunto(C2);
     printf("Quantos elementos em C1?: ");
@@ -342,7 +356,9 @@ int main(){
                 if(criaConjunto(&C) == 1){
                     printf("Conjunto criado com sucesso.\n");
                     criadoC = 1; 
-                }else{printf("Erro na criacao.\n");
+                }
+                else{
+                    printf("Erro na criacao.\n");
                 }break;
             }
             case 2: {
@@ -353,16 +369,16 @@ int main(){
                 break;
             }
             case 3: {
-                if (criadoC){
+                if(criadoC){
                     char c;
                     scanf("%c", &c); // scan pra ler o 'enter' dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
                     Complexo elemento = lerComplexo();
-                    if (elemento.real == 0.0 && elemento.imaginario == 0.0) { //Algum erro na leitura 
+                    if (elemento.real == 0.0 && elemento.imaginario == 0.0){ //Algum erro na leitura 
                         break; 
                     } 
-                    else{
-                    (insereElementoConjunto(elemento, &C) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
-                    break;
+                    else{ 
+                        (insereElementoConjunto(elemento, &C) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
+                        break;
                     }
                 }else{printf("Erro, conjunto C ainda nao foi criado.\n");
                 }break;
@@ -372,14 +388,15 @@ int main(){
                     char c;
                     scanf("%c", &c); // scan pra ler o 'enter' dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
                     Complexo elemento = lerComplexo();
-                    if (elemento.real == 0.0 && elemento.imaginario == 0.0) {
+                    if (elemento.real == 0.0 && elemento.imaginario == 0.0){
                         break;
                     } 
                     else{
-                    (excluirElementoConjunto(elemento, &C) == 1) ? printf("Elemento excluido com sucesso.\n") : printf("Erro na exclusao do elemento.\n");
-                    break;
+                        (excluirElementoConjunto(elemento, &C) == 1) ? printf("Elemento excluido com sucesso.\n") : printf("Erro na exclusao do elemento.\n");
+                        break;
                     }
-                }printf("Erro, conjunto C ainda nao foi criado.\n");
+                }
+                printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 5: {
@@ -387,7 +404,7 @@ int main(){
                     printf("Mostrar conjunto de forma Crescente[1] ou Descrescente[0]?: ");
                     int cres;
                     scanf("%d", &cres);
-                    switch (cres) {
+                    switch (cres){
                         case 1:
                             mostraConjunto(&C, CRESCENTE);
                             break;
@@ -414,7 +431,7 @@ int main(){
                     char c;
                     scanf("%c", &c); // scan pra ler o enter dado apos o case pra ele nao ser lido pelo o fgets do lerComplexo()
                     Complexo elemento = lerComplexo();
-                    if (elemento.real == 0.0 && elemento.imaginario == 0.0) {
+                    if (elemento.real == 0.0 && elemento.imaginario == 0.0){
                         break;
                     } 
                     else{
