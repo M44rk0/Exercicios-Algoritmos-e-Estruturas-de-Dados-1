@@ -1,16 +1,13 @@
 //==============================================================================
 // Arquivo complexos.h
 //==============================================================================
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <limits.h>
 #include <math.h>
-
 //Define o tamanho maximo de elementos no conjunto
 #define MAX_ELEMENTOS 1000000 
-
 //Define as constantes
 #define SUCESSO 1
 #define FALHA 0
@@ -39,7 +36,6 @@ int destroiConjunto(Conjunto *C);
 //==============================================================================
 // Arquivo complexos.c
 //==============================================================================
-
 //Define o struct para um numero complexo
 struct complexo{
     double real;
@@ -134,7 +130,6 @@ Conjunto complemento(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar a uniao de C1 com C2
 Conjunto uniao(Conjunto *C1, Conjunto *C2){
-
     Conjunto uniao;
     criaConjunto(&uniao);
 
@@ -179,7 +174,7 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2){
         C2->tamanho = C1->tamanho;
         for (int i = 0; i < C1->tamanho; i++){
             C2->elementos[i] = C1->elementos[i];
-        }return SUCESSO;
+        } return SUCESSO;
     } return FALHA;
 }
 // Funcao pra destruir um conjunto
@@ -210,7 +205,7 @@ void mostraConjunto(Conjunto *C, int ordem){
                     printf(", ");
                 }
             }
-        }else if (ordem == DECRESCENTE){
+        } else if (ordem == DECRESCENTE){
             printf("{");
             
             for(int i = C->tamanho - 1; i >= 0; i--){
@@ -227,7 +222,7 @@ void mostraConjunto(Conjunto *C, int ordem){
                     printf(", ");
                 }
             }
-        }printf("}\n");
+        } printf("}\n");
     }
 }
 //Funcao auxiliar pra remover os espacos de uma String
@@ -277,7 +272,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         if(quantidade <= 0){
             printf("Quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em C1?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em C1:\n");
     char c;
@@ -293,7 +288,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         if(quantidade2 <= 0){
             printf("Quantidade invalida, tente novamente\n");
             printf("Quantos elementos em C2?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em C2:\n");
     scanf("%c", &c);
@@ -365,7 +360,8 @@ int main(){
                 if(criadoC){
                     (conjuntoVazio(&C) == 1) ? printf("Conjunto e vazio.\n") : printf("Conjunto nao e vazio.\n");
                     break;
-                }printf("Erro, conjunto C ainda nao foi criado.\n");
+                }
+                printf("Erro, conjunto C ainda nao foi criado.\n");
                 break;
             }
             case 3: {
@@ -380,8 +376,11 @@ int main(){
                         (insereElementoConjunto(elemento, &C) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
                         break;
                     }
-                }else{printf("Erro, conjunto C ainda nao foi criado.\n");
-                }break;
+                }
+                else{
+                    printf("Erro, conjunto C ainda nao foi criado.\n");
+                }
+                break;
             }
             case 4: {
                 if(criadoC){
@@ -390,7 +389,7 @@ int main(){
                     Complexo elemento = lerComplexo();
                     if (elemento.real == 0.0 && elemento.imaginario == 0.0){
                         break;
-                    } 
+                    }
                     else{
                         (excluirElementoConjunto(elemento, &C) == 1) ? printf("Elemento excluido com sucesso.\n") : printf("Erro na exclusao do elemento.\n");
                         break;
@@ -415,7 +414,8 @@ int main(){
                             printf("Forma invalida, tente novamente!\n");
                             break;
                     }break;
-                }printf("Erro, conjunto C ainda nao foi criado.\n");
+                }
+                printf("Erro, conjunto C ainda nao foi criado.\n");
                 break; 
             }
             case 6: {
@@ -435,10 +435,11 @@ int main(){
                         break;
                     } 
                     else{
-                (pertenceConjunto(elemento, &C) == 1) ? printf("O elemento dado pertence ao conjunto.\n") : printf("O elemento dado nao pertence ao conjunto.\n");
-                break;
+                        (pertenceConjunto(elemento, &C) == 1) ? printf("O elemento dado pertence ao conjunto.\n") : printf("O elemento dado nao pertence ao conjunto.\n");
+                        break;
+                    }
                 }
-                }printf("Erro, conjunto C ainda nao foi criado ou e vazio.\n");
+                printf("Erro, conjunto C ainda nao foi criado ou e vazio.\n");
                 break;
             }
             case 8: {
@@ -481,7 +482,9 @@ int main(){
                 if(copiarConjunto(&C1, &C2) == 1){
                     printf("Copiado com sucesso!\n");
                     mostraConjunto(&C2, CRESCENTE);
-                }else{printf("Erro na copia.\n");
+                }
+                else{
+                    printf("Erro na copia.\n");
                 }break;
             }
             case 15: {

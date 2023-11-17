@@ -29,7 +29,6 @@ unsigned int numeroMesesDatas(Data d1, Data d2);
 unsigned int numeroAnosDatas(Data d1, Data d2);
 unsigned int obtemDiaSemanaData(Data d);
 char *imprimeData(Data d, char *formato);
-
 //==============================================================================
 // Arquivo ponto.c
 //==============================================================================
@@ -55,7 +54,7 @@ void liberaData(Data *d){
     if(d != NULL){
     free(d);
     }
-};
+}
 //Funcao auxiliar pra verificar se um ano e bissexto
 int bissexto(int ano){
     return (ano % 4 == 0 && ano % 100 != 0) || (ano % 400 == 0);
@@ -64,7 +63,6 @@ int bissexto(int ano){
 unsigned int diasNoMes(int mes, int ano) {
     unsigned int diasPorMes[] = {0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
     return (mes == 2 && bissexto(ano)) ? 29 : diasPorMes[mes];
-
 }
 // Funcao pra somar os dias a uma data
 Data somaDiasData(Data d, unsigned int dias){
@@ -76,12 +74,15 @@ Data somaDiasData(Data d, unsigned int dias){
             if (d.mes == 12){
                 d.mes = 1;
                 d.ano++;
-            }else{d.mes++;}
-        }else{
+            }
+            else{
+                d.mes++;}
+        }
+        else{
             d.dia += dias;
             dias = 0;
         }
-    }return d;
+    } return d;
 }
 //Funcao pra subtrair uma data
 Data subtrairDiasData(Data d, unsigned int dias){
@@ -89,35 +90,38 @@ Data subtrairDiasData(Data d, unsigned int dias){
         if (d.dia > dias){
             d.dia -= dias;
             dias = 0;
-        } else {
+        } 
+        else{
             if (d.mes == 1) {
                 d.mes = 12;
                 d.ano--;
-            } else {d.mes--;}
+            }
+            else d.mes--;
+
             int diasNoMesAnterior = diasNoMes(d.mes, d.ano);
             d.dia = diasNoMesAnterior;
             dias -= d.dia;
         }
-    }return d;
+    } return d;
 }
 //Funcao pra atribuir novos valores a data
 void atribuirData (Data * d, unsigned int dia, unsigned int mes, unsigned int ano){
     if(d != NULL){
         d->dia = dia, d->mes = mes, d->ano = ano;
-    };
+    }
 }
 //Funcao pra retornar o dia de uma data
 unsigned int obtemDiaData(Data d){
     return d.dia;
-};
+}
 //Funcao pra retornar o mes de uma data
 unsigned int obtemMesData(Data d){
     return d.mes;
-};
+}
 //Funcao pra retornar o ano de uma data
 unsigned int obtemAnoData(Data d){
     return d.ano;
-};
+}
 //Funcao pra verificar se uma data pertence a um ano bissexto
 unsigned int bissextoData(Data d){
     return (d.ano % 4 == 0 && d.ano % 100 != 0) || (d.ano % 400 == 0);
@@ -151,7 +155,8 @@ unsigned int numeroDiasDatas(Data d1, Data d2){
         Data temp = d1;
         d1 = d2;
         d2 = temp;
-    } while (d1.ano < d2.ano || (d1.ano == d2.ano && (d1.mes < d2.mes || (d1.mes == d2.mes && d1.dia < d2.dia)))){
+    } 
+    while (d1.ano < d2.ano || (d1.ano == d2.ano && (d1.mes < d2.mes || (d1.mes == d2.mes && d1.dia < d2.dia)))){
         dias++;
         d1.dia++;
         if (d1.dia > diasNoMes(d1.mes, d1.ano)){
@@ -162,7 +167,7 @@ unsigned int numeroDiasDatas(Data d1, Data d2){
                 d1.ano++;
             }
         }
-    }return dias;
+    } return dias;
 }
 //Funcao que calcula o numero de meses entre duas datas
 unsigned int numeroMesesDatas(Data d1, Data d2){
@@ -171,14 +176,15 @@ unsigned int numeroMesesDatas(Data d1, Data d2){
         Data temp = d1;
         d1 = d2;
         d2 = temp;
-    } while (d1.ano < d2.ano || (d1.ano == d2.ano && d1.mes < d2.mes)){
+    } 
+    while (d1.ano < d2.ano || (d1.ano == d2.ano && d1.mes < d2.mes)){
         meses++;
         d1.mes++;
         if (d1.mes > 12){
             d1.mes = 1;
             d1.ano++;
         }
-    }return meses;
+    } return meses;
 }
 //Funcao que calcula o numero de anos entre duas datas
 unsigned int numeroAnosDatas(Data d1, Data d2) {
@@ -347,7 +353,7 @@ int main(){
                     if(dia > 31){
                         printf("Erro, tente novamente.\n");
                         printf("Dia: ");
-                        }else break;
+                        } else break;
                 }
                 printf("Mes: ");
                 unsigned int mes;
@@ -356,7 +362,7 @@ int main(){
                     if(mes > 12 || (mes == 2 && dia > 29)){
                         printf("Erro, tente novamente.\n");
                         printf("Mes: ");
-                    }else break;
+                    } else break;
                 } 
                 printf("Ano: ");
                 unsigned int ano;
@@ -365,7 +371,7 @@ int main(){
                     if(ano > 2200 || ano < 1900 || (mes == 2 && dia == 29 && !bissexto(ano))){
                         printf("Erro, tente novamente.\n");
                         printf("Ano: ");
-                    }else break;
+                    } else break;
                 } 
                 d = criaData(dia, mes, ano);               
                 printf("Data %s criada com sucesso!\n", imprimeData(*d, "ddmmaaaa"));
@@ -380,7 +386,7 @@ int main(){
                         if(dia > 31){
                             printf("Erro, tente novamente\n");
                             printf("Dia: ");
-                            }else break;
+                            } else break;
                     }
                     printf("Mes: ");
                     unsigned int mes;
@@ -389,7 +395,7 @@ int main(){
                         if(mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
                             printf("Erro, tente novamente\n");
                             printf("Mes: ");
-                        }else break;
+                        } else break;
                     } 
                     printf("Ano: ");
                     unsigned int ano;
@@ -398,7 +404,7 @@ int main(){
                         if(ano > 2200 || (mes == 2 && dia == 29 && !bissexto(ano))){
                             printf("Erro, tente novamente\n");
                             printf("Mes: ");
-                        }else break;
+                        } else break;
                     } 
                     atribuirData(d, dia, mes, ano);
                     printf("Data alterada com sucesso.\n");
@@ -411,13 +417,15 @@ int main(){
                 if(d != NULL){
                     copia = copiaData(*d); 
                     printf("Copia de [%s] realizada com sucesso.\n", imprimeData(*copia, "ddmmaaaa"));
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 4: {
                 if(d != NULL){
                     printf("Data: %s\n", imprimeData(*d, "ddmmaaaa"));
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 5: {
@@ -433,7 +441,8 @@ int main(){
                     copia = copiaData(*d);
                     printf("Data: %s\n", imprimeData(somaDiasData(*copia, dias), "ddmmaaaa"));
                     liberaData(copia);
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 7: {
@@ -444,31 +453,36 @@ int main(){
                     copia = copiaData(*d);
                     printf("Data: %s\n", imprimeData(subtrairDiasData(*copia, dias), "ddmmaaaa"));
                     liberaData(copia);
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 8: {
                 if(d != NULL){
                     printf("Dia: %u\n", obtemDiaData(*d));
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 9: {
                 if(d != NULL){
                     printf("Mes: %u\n", obtemMesData(*d));
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 10: {
                 if(d != NULL){
                     printf("Ano: %u\n", obtemAnoData(*d));
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 11: {
                 if(d != NULL){
                     (bissextoData(*d) == 1) ? printf("Ano bissexto.\n") : printf("Nao e bissexto.\n");
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 12: {
@@ -482,7 +496,8 @@ int main(){
                         case 6: printf("Sexta\n"); break;
                         case 7: printf("Sabado\n"); break;
                     }
-                }else printf("Data ainda nao criada.\n");
+                }
+                else printf("Data ainda nao criada.\n");
                 break;
             }
             case 13: {

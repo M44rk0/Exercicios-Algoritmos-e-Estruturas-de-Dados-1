@@ -39,7 +39,7 @@ int create(Stack *P){
         P->conteudo = (long int *)malloc(MAX_ELEMENTOS * sizeof(long int));
         P->top = -1;
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
 //Funcao pra verificar se a pilha e vazia ou nao
 int isEmpty(Stack *P){
@@ -50,14 +50,14 @@ int push(Stack *P, long int elemento){
     if(P != NULL && P->top < MAX_ELEMENTOS && elemento < LONG_MAX && elemento > LONG_MIN){
         P->top++, P->conteudo[P->top] = elemento;
         return SUCESSO;
-    }return FALHA;
-};
+    } return FALHA;
+}
 //Funcao pra remover um elemento do topo da pilha
 int pop(Stack *P){
     if(P != NULL && P->top > -1){
         P->top--;
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
 //Funcao para mostrar o tamanho da pilha
 long int size(Stack *P){
@@ -70,8 +70,8 @@ int belongTo(long int x, Stack *P){
             if(P->conteudo[i] == x){
                 return TRUE;
             }
-        }return FALSE;
-    }return FALSE;
+        } return FALSE;
+    } return FALSE;
 }
 //Funcao pra verificar se duas pilhas sao iguais
 int isEqual(Stack *P1, Stack *P2){
@@ -81,8 +81,8 @@ int isEqual(Stack *P1, Stack *P2){
             if(!belongTo(elemento, P2)){
                 return FALSE;
             }
-        }return TRUE;
-    }return FALSE;
+        } return TRUE;
+    } return FALSE;
 }
 //Funcao para printar a pilha
 void show(Stack *P, int ordem){
@@ -92,12 +92,13 @@ void show(Stack *P, int ordem){
             for(int i = 0; i < P->top+1; i++){
                 printf(" %ld \n", P->conteudo[i]);
             }
-        }else if (ordem == TOP){
+        } else if (ordem == TOP){
             printf("\n");
             for(int i = P->top; i >= 0; i--){
                 printf("  %ld \n", P->conteudo[i]);
             }
-        };printf("\n");
+        } 
+        printf("\n");
     }
 }
 //Funcao pra copiar uma pilha pra outra
@@ -106,8 +107,8 @@ int copy(Stack *P1, Stack *P2){
         P2->top = P1->top;
         for (int i = 0; i < P1->top; i++){
             P2->conteudo[i] = P1->conteudo[i];
-        }return SUCESSO;
-    }return FALHA;
+        } return SUCESSO;
+    } return FALHA;
 }
 //Funcao auxiliar pra criar duas Pilhas, P1 & P2
 void createP1P2(Stack *P1, Stack *P2){
@@ -119,7 +120,7 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade <= 0){
             printf("quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em P1?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em P1:\n");
     for(int i = 0; i<quantidade; i++){
@@ -135,7 +136,7 @@ void createP1P2(Stack *P1, Stack *P2){
         if(quantidade2 <= 0){
             printf("quantidade invalida, tente novamente\n");
             printf("Quantos elementos em P2?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em P2:\n");
     for(int i = 0; i<quantidade2; i++){
@@ -151,7 +152,7 @@ int destroy(Stack *P){
         P->top = -1;
         free(P->conteudo);
         return SUCESSO;
-    }return FALHA;
+    } return FALHA;
 }
 //Funcao auxiliar pra printar linha
 void printLinha(){
@@ -202,14 +203,16 @@ int main(){
                 if(create(&P) == 1){
                     printf("Pilha criada.\n");
                     criadoP = 1; 
-                }else printf("Erro na criacao.\n");
+                }
+                else printf("Erro na criacao.\n");
                 break;
             }
             case 2: {
                 if(criadoP){
                     (isEmpty(&P) == 1) ? printf("Pilha vazia.\n") : printf("Pilha nao e vazia.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada.\n");
+                }
+                printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 3: {
@@ -219,14 +222,16 @@ int main(){
                     scanf("%ld", &elemento);
                     (push(&P, elemento) == 1) ? printf("Elemento inserido com sucesso.\n") : printf("Erro na insercao do elemento.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada.\n");
+                }
+                printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 4: {
                 if(criadoP){
                     (pop(&P) == 1) ? printf("Elemento removido com sucesso.\n") : printf("Erro na remocao do elemento.\n");
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada.\n");
+                }
+                printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 5: {
@@ -245,14 +250,16 @@ int main(){
                             printf("Opcao invalida.\n");
                             break;
                     }break;
-                }printf("Erro, Pilha P ainda nao foi criada.\n");
+                }
+                printf("Erro, Pilha P ainda nao foi criada.\n");
                 break; 
             }
             case 6: {
                 if(criadoP){
                     printf("Tamanho do Pilha P: %ld\n", size(&P));
                     break;
-                }printf("Erro, Pilha P ainda nao foi criada.\n");
+                }
+                printf("Erro, Pilha P ainda nao foi criada.\n");
                 break;
             }
             case 7: {
@@ -265,8 +272,9 @@ int main(){
                 if(copy(&P1, &P2) == 1){
                     printf("Copiado com sucesso.\n");
                     show(&P2, TOP);
-                }else{printf("Erro na copia.\n");
-                }break;
+                }
+                else printf("Erro na copia.\n");
+                break;
             }
             case 9: {
                 printf("Qual pilha destruir? (P = 0, P1 & P2 = 1): \n");
