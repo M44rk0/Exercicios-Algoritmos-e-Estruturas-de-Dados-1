@@ -117,7 +117,6 @@ int subConjunto(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar o complemento de C1 em relacao a C2
 Conjunto complemento(Conjunto *C1, Conjunto *C2){
-
     Conjunto complemento;
     criaConjunto(&complemento);
 
@@ -144,7 +143,6 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar a interseccao de C1 com C2
 Conjunto interseccao(Conjunto *C1, Conjunto *C2){
-
     Conjunto interseccao;
     criaConjunto(&interseccao);
 
@@ -157,7 +155,6 @@ Conjunto interseccao(Conjunto *C1, Conjunto *C2){
 }
 //Funcao pra gerar a diferenca de C1 e C2
 Conjunto diferenca(Conjunto *C1, Conjunto *C2){
-
     Conjunto diferenca;
     criaConjunto(&diferenca);
 
@@ -341,6 +338,7 @@ int main(){
         printLinha();
         printf("|                 [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                 |\n");
         printLinha();
+        printf("Opcao: ");
         scanf("%d", &escolha);
         switch (escolha){
             case 999: {

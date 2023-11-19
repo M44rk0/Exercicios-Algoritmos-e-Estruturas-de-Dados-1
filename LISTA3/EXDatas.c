@@ -246,7 +246,7 @@ void criaDataAux(Data **d1, Data **d2){
     unsigned int mes;
     while (1){
         scanf("%u", &mes);
-        if (mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+        if (mes > 12 || (mes == 2 && dia > 29)){
             printf("Erro, tente novamente.\n");
             printf("Mes: ");
         } else break;
@@ -275,7 +275,7 @@ void criaDataAux(Data **d1, Data **d2){
     printf("Mes: ");
     while (1){
         scanf("%u", &mes);
-        if (mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+        if (mes > 12 || (mes == 2 && dia > 29)){
             printf("Erro, tente novamente.\n");
             printf("Mes: ");
         } else break;
@@ -309,7 +309,7 @@ void opcoes(){
     printf("| [ 8] -> [Exibir o dia da data]                 | [16] -> [Comparar duas datas]                            |\n");
 }
 //Funcao pra printar boas vindas :O
-void boasVindas(){
+void titulo(){
     printLinha();
     printf("|                                                                               _       _                   |\n");
     printf("|                                                                              | |     | |                  |\n");
@@ -327,13 +327,14 @@ void boasVindas(){
 // Arquivo ponto.c
 //==============================================================================
 int main(){
-   boasVindas();
+   titulo();
     int escolha;
     Data *d = NULL, *d1 = NULL, *d2 = NULL, *copia = NULL;
     while(escolha != 0){
         printLinha();
         printf("|                  [999] -> [Mostrar opcoes novamente] | [ 0 ] -> [Encerrar programa]                       |\n");
         printLinha();
+        printf("Opcao: ");
         scanf("%d", &escolha);
         switch (escolha){
             case 999: {
@@ -392,7 +393,7 @@ int main(){
                     unsigned int mes;
                     while(1){
                         scanf("%u", &mes);
-                        if(mes > 12 || (mes == 2 && dia > 29) || (mes > 2 && dia == 29)){
+                        if(mes > 12 || (mes == 2 && dia > 29)){
                             printf("Erro, tente novamente\n");
                             printf("Mes: ");
                         } else break;

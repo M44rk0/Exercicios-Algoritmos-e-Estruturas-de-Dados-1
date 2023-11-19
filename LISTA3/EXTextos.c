@@ -4,13 +4,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
+//Define as constantes
 #define SUCESSO 1
 #define FALHA 0
 #define IGUAL 0
 #define MENOR -1
 #define MAIOR 1
-
+//Define o cabecalho das funcoes
 typedef struct texto Texto;
 Texto *criarTexto(char *t);
 void liberarTexto(Texto *t);
@@ -23,11 +23,9 @@ Texto *concatenarTextos(Texto *t1, Texto *t2);
 char *obterSubtexto(Texto *t, unsigned int inicio, unsigned int tamanho);
 unsigned int encontrarSubtexto(Texto *t, char *subtexto, unsigned int ocorrencia);
 int compararTextos(Texto *t1, Texto *t2);
-
 //==============================================================================
 // Arquivo pilha.c
 //==============================================================================
-
 struct texto{
     char *conteudo;
 };
@@ -80,11 +78,11 @@ Texto *concatenarTextos(Texto *t1, Texto *t2){
     free(novo);
     return novoTexto;
 }
-//Implementacao da strndup pois o compilador nao reconhece
-char *strndup(const char *s, size_t n) {
+//Implementacao da strndup pois o compilador nao reconheceu
+char *strndup(const char *s, size_t n){
     size_t len = strnlen(s, n);
     char *dup = (char *)malloc(len + 1);
-    if (dup != NULL) {
+    if (dup != NULL){
         memcpy(dup, s, len);
         dup[len] = '\0';
     }
@@ -98,10 +96,10 @@ char *obterSubtexto(Texto *t, unsigned int inicio, unsigned int tamanho){
     return strndup(t->conteudo + inicio - 1, tamanho);
 }
 //funcao prra encontrar um subtexto no Texto
-unsigned int encontrarSubtexto(Texto *t, char *subtexto, unsigned int ocorrencia) {
+unsigned int encontrarSubtexto(Texto *t, char *subtexto, unsigned int ocorrencia){
     char *pos = t->conteudo;
     unsigned int i;
-    for (i = 1; i < ocorrencia; ++i) {
+    for (i = 1; i < ocorrencia; ++i){
         pos = strstr(pos + 1, subtexto);
         if (pos == NULL) {
             return FALHA;
@@ -110,11 +108,11 @@ unsigned int encontrarSubtexto(Texto *t, char *subtexto, unsigned int ocorrencia
     return (unsigned int)(pos - t->conteudo) + 1;
 }
 //funcao que compara dois Textos
-int compararTextos(Texto *t1, Texto *t2) {
+int compararTextos(Texto *t1, Texto *t2){
     int comparacao = strcmp(t1->conteudo, t2->conteudo);
-    if (comparacao < 0) {
+    if (comparacao < 0){
         return MENOR;
-    } else if (comparacao > 0) {
+    } else if (comparacao > 0){
         return MAIOR;
     } else {
         return IGUAL;
@@ -164,17 +162,18 @@ int main() {
                 opcoes();
                 break;
             }
-            case 1:
+            case 1: {
                 printf("Digite o texto: ");
                 scanf(" %[^\n]s", textoAux);
-                if (texto != NULL) {
+                if (texto != NULL){
                     liberarTexto(texto);
                 }
                 texto = criarTexto(textoAux);
                 printf("Texto criado com sucesso\n");
                 break;
-            case 2:
-                if (texto != NULL) {
+            }
+            case 2: {
+                if (texto != NULL){
                     liberarTexto(texto);
                     texto = NULL;
                     printf("Texto liberado com sucesso\n");
@@ -182,22 +181,25 @@ int main() {
                     printf("Nenhum texto para liberar.\n");
                 }
                 break;
-            case 3:
-                if (texto != NULL) {
+            }
+            case 3: {
+                if (texto != NULL){
                     printf("Tamanho do texto: %u\n", tamanhoTexto(texto));
                 } else {
                     printf("Nenhum texto disponivel.\n");
                 }
                 break;
-            case 4:
-                if (texto != NULL) {
+            }
+            case 4: {
+                if (texto != NULL){
                     printf("Texto: %s\n", obterTexto(texto));
                 } else {
                     printf("Nenhum texto disponivel.\n");
                 }
                 break;
-            case 5:
-                if (texto != NULL) {
+            }
+            case 5: {
+                if (texto != NULL){
                     unsigned int colunas;
                     printf("Digite o numero de colunas por linha: ");
                     scanf("%u", &colunas);
@@ -206,8 +208,9 @@ int main() {
                     printf("Nenhum texto disponivel.\n");
                 }
                 break;
-            case 6:
-                if (texto != NULL) {
+            }
+            case 6: {
+                if (texto != NULL){
                     Texto *copia = copiarTexto(texto);
                     printf("Texto copiado.\n");
                     mostrarTexto(copia, 80);
@@ -216,8 +219,9 @@ int main() {
                     printf("Nenhum texto disponível.\n");
                 }
                 break;
-            case 7:
-                if (texto != NULL) {
+            }
+            case 7: {
+                if (texto != NULL){
                     printf("Digite o novo texto: ");
                     scanf(" %[^\n]s", textoAux);
                     substituirTexto(texto, textoAux);
@@ -226,25 +230,31 @@ int main() {
                     printf("Nenhum texto disponivel.\n");
                 }
                 break;
-            case 8:
-                printf("Digite o segundo texto: ");
-                scanf(" %[^\n]s", textoAux);
-                Texto *texto2 = criarTexto(textoAux);
-                Texto *concatenado = concatenarTextos(texto, texto2);
-                printf("Textos concatenados.\n");
-                mostrarTexto(concatenado, 80);
-                liberarTexto(texto2);
-                liberarTexto(concatenado);
+            }
+            case 8: {
+                if(texto != NULL){
+                    printf("Digite o segundo texto: ");
+                    scanf(" %[^\n]s", textoAux);
+                    Texto *texto2 = criarTexto(textoAux);
+                    Texto *concatenado = concatenarTextos(texto, texto2);
+                    printf("Textos concatenados.\n");
+                    mostrarTexto(concatenado, 80);
+                    liberarTexto(texto2);
+                    liberarTexto(concatenado);
+                } else {
+                    printf("Nenhum texto disponivel.\n");
+                }
                 break;
-            case 9:
-                if (texto != NULL) {
+            }
+            case 9: {
+                if (texto != NULL){
                     unsigned int inicio, tamanho;
                     printf("Digite a posicao inicial: ");
                     scanf("%u", &inicio);
                     printf("Digite o tamanho do subtexto: ");
                     scanf("%u", &tamanho);
                     char *subtexto = obterSubtexto(texto, inicio, tamanho);
-                    if (subtexto != NULL) {
+                    if (subtexto != NULL){
                         printf("Subtexto: %s\n", subtexto);
                         free(subtexto);
                     } else {
@@ -254,14 +264,15 @@ int main() {
                     printf("Nenhum texto disponivel.\n");
                 }
                 break;
-            case 10:
-                if (texto != NULL) {
+            }
+            case 10: {
+                if (texto != NULL){
                     printf("Digite o subtexto: ");
                     scanf(" %[^\n]s", textoAux);
                     printf("Digite a ocorrencia: ");
                     scanf("%u", &escolha);
                     unsigned int posicao = encontrarSubtexto(texto, textoAux, escolha);
-                    if (posicao != 0) {
+                    if (posicao != 0){
                         printf("Ocorrencia encontrada na posicao %u.\n", posicao);
                     } else {
                         printf("Ocorrência não encontrada.\n");
@@ -270,30 +281,36 @@ int main() {
                     printf("Nenhum texto disponível.\n");
                 }
                 break;
-            case 11:
-                printf("Digite o segundo texto: ");
-                scanf(" %[^\n]s", textoAux);
-                Texto *t2 = criarTexto(textoAux);
-                int resultado = compararTextos(texto, t2);
-                if (resultado < 0) {
-                    printf("Os textos sao diferentes, e o primeiro e menor.\n");
-                } else if (resultado > 0) {
-                    printf("Os textos sao diferentes, e o primeiro e maior.\n");
+            }
+            case 11: {
+                if(texto != NULL){
+                    printf("Digite o segundo texto: ");
+                    scanf(" %[^\n]s", textoAux);
+                    Texto *t2 = criarTexto(textoAux);
+                    int resultado = compararTextos(texto, t2);
+                    if (resultado < 0){
+                        printf("Os textos sao diferentes, e o primeiro e menor.\n");
+                    } else if (resultado > 0){
+                        printf("Os textos sao diferentes, e o primeiro e maior.\n");
+                    } else {
+                        printf("Os textos sao iguais.\n");
+                    }
+                    liberarTexto(t2);
                 } else {
-                    printf("Os textos sao iguais.\n");
+                    printf("Nenhum texto disponivel. \n");
                 }
-                liberarTexto(t2);
                 break;
-            case 0:
+            }
+            case 0: {
                 printf("Encerrando programa.\n");
-                if (texto != NULL) {
+                if (texto != NULL){
                     liberarTexto(texto);
                 }
                 break;
+            }
             default:
                 printf("Opcao invalida.\n");
         }
     }
-
     return 0;
 }

@@ -90,12 +90,12 @@ void show(Stack *P, int ordem){
         if(ordem == BASE){
             printf("\n");
             for(int i = 0; i < P->top+1; i++){
-                printf(" %ld \n", P->conteudo[i]);
+                printf("|%ld| \n", P->conteudo[i]);
             }
         } else if (ordem == TOP){
             printf("\n");
             for(int i = P->top; i >= 0; i--){
-                printf("  %ld \n", P->conteudo[i]);
+                printf("|%ld| \n", P->conteudo[i]);
             }
         } 
         printf("\n");
@@ -105,7 +105,7 @@ void show(Stack *P, int ordem){
 int copy(Stack *P1, Stack *P2){
     if (P1 != NULL && P2 != NULL){
         P2->top = P1->top;
-        for (int i = 0; i < P1->top; i++){
+        for (int i = 0; i <= P1->top; i++){
             P2->conteudo[i] = P1->conteudo[i];
         } return SUCESSO;
     } return FALHA;
@@ -141,7 +141,7 @@ void createP1P2(Stack *P1, Stack *P2){
     printf("Digite os elementos a serem inseridos em P2:\n");
     for(int i = 0; i<quantidade2; i++){
         long int elemento2;
-        printf("%d° elemento: ", i+1);
+        printf("%d elemento: ", i+1);
         scanf("%ld", &elemento2);
         push(P2, elemento2);
     }
@@ -168,7 +168,7 @@ void opcoes(){
     printf("| [ 5] -> [Mostrar os elementos da Pilha P]  |                                                |\n");
 }
 //Funcao pra printar boas vindas :O
-void boasVindas(){
+void titulo(){
     printLinha();
     printf("                                                                          _ _ _               \n");
     printf("                                                                         (_) | |              \n");
@@ -186,7 +186,7 @@ void boasVindas(){
 // Corpo principal
 //==============================================================================
 int main(){
-   boasVindas();
+    titulo();
     int escolha, criadoP = 0;
     while(escolha != 0){
         Stack P, P1, P2;
@@ -236,7 +236,7 @@ int main(){
             }
             case 5: {
                 if(criadoP){
-                    printf("Mostrar pilha desde o Topo[1] ou desde a Base[2]?: ");
+                    printf("Mostrar pilha desde o Topo[1] ou desde a Base[0]?: ");
                     int cres;
                     scanf("%d", &cres);
                     switch(cres){
@@ -268,12 +268,13 @@ int main(){
                 break;
             }
             case 8: {
-                createP1P2(&P1, &P2);
-                if(copy(&P1, &P2) == 1){
-                    printf("Copiado com sucesso.\n");
-                    show(&P2, TOP);
-                }
-                else printf("Erro na copia.\n");
+                    createP1P2(&P1, &P2);
+                    if(copy(&P1, &P2) == 1){
+                        printf("P1 Copiado para P2 com sucesso.\n");
+                        show(&P2, TOP);
+                    } else {
+                        printf("Erro na copia\n");
+                    }
                 break;
             }
             case 9: {

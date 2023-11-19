@@ -19,8 +19,10 @@
 typedef struct conjuntovect VetorConjuntos;
 typedef struct conjunto Conjunto;
 int criaConjunto(Conjunto *C);
+int criaVect(VetorConjuntos *CV);
 int conjuntoVazio(Conjunto *C);
 int insereElementoConjunto(long int x, Conjunto *C);
+int insereConjuntoVect(Conjunto C, VetorConjuntos *CV);
 int excluirElementoConjunto(long int x, Conjunto *C);
 int tamanhoConjunto(Conjunto *C);
 int maior(long int x, Conjunto *C);
@@ -33,6 +35,7 @@ Conjunto uniao(Conjunto *C1, Conjunto *C2);
 Conjunto interseccao(Conjunto *C1, Conjunto *C2);
 Conjunto diferenca(Conjunto *C1, Conjunto *C2);
 VetorConjuntos conjuntoPartes(Conjunto *C);
+void mostraConjuntoPartes(VetorConjuntos CV);
 void mostraConjunto(Conjunto C, int ordem);
 int copiarConjunto(Conjunto *C1, Conjunto *C2);
 int destroiConjunto(Conjunto *C);
@@ -49,19 +52,17 @@ struct conjuntovect{
     int tamanho;
     Conjunto *elementosvect;
 };
-//Funcao auxiliar pra criar um vetor de Conjuntos vazio
-int criaVect(VetorConjuntos *CV){
-    CV->elementosvect = (Conjunto *)malloc(100 * sizeof(Conjunto));
-    CV->tamanho = 0;
-    return SUCESSO;
-}
 //Funcao para criar um conjunto vazio
 int criaConjunto(Conjunto *C){
-    if(C != NULL){
-        C->elementos = (long int *)malloc(MAX_ELEMENTOS * sizeof(long int));
-        C->tamanho = 0;
-        return SUCESSO;
-    } return FALHA;
+    C->elementos = (long int *)malloc(MAX_ELEMENTOS * sizeof(long int));
+    C->tamanho = 0;
+    return SUCESSO;
+}
+//Funcao auxiliar pra criar um vetor de Conjuntos vazio
+int criaVect(VetorConjuntos *CV){
+    CV->elementosvect = (Conjunto *)malloc(10000 * sizeof(Conjunto));
+    CV->tamanho = 0;
+    return SUCESSO;
 }
 //Funcao pra ver se o conjunto esta vazio
 int conjuntoVazio(Conjunto *C){
@@ -71,7 +72,7 @@ int conjuntoVazio(Conjunto *C){
 int insereElementoConjunto(long int x, Conjunto *C){
     if(C != NULL && C->tamanho < MAX_ELEMENTOS && x < LONG_MAX && x > LONG_MIN){
         for(int i = 0; i < C->tamanho; i++){
-            if(C->elementos[i] == x) return FALHA; //elemento ja existe no conjunto
+            if(C->elementos[i] == x) return FALHA;
         }
         C->elementos[C->tamanho] = x, C->tamanho++;
         return SUCESSO;
@@ -198,7 +199,7 @@ Conjunto diferenca(Conjunto *C1, Conjunto *C2){
         }
     } return diferenca;
 }
-//Funcao auxiliar para printar um conjunto do vetor de conjuntos
+//Funcao auxiliar pra printar um conjunto do vetor de conjuntos
 void mostraConjuntoAux(Conjunto C){
     printf("{");
     for(int i = 0; i < C.tamanho; i++){
@@ -222,11 +223,9 @@ void mostraConjuntoPartes(VetorConjuntos CV){
 }
 //Funcao pra ordenar os conjuntos dentro do vetor de Conjuntos
 void bubbleSort(VetorConjuntos *CV){
-    int i, j;
-    for (i = 0; i < CV->tamanho - 1; i++){
-        for (j = 0; j < CV->tamanho - i - 1; j++){
+    for (int i = 0; i < CV->tamanho - 1; i++){
+        for (int j = 0; j < CV->tamanho - i - 1; j++){
             if (CV->elementosvect[j].tamanho > CV->elementosvect[j + 1].tamanho){
-                // Troca os conjuntos
                 Conjunto temp = CV->elementosvect[j];
                 CV->elementosvect[j] = CV->elementosvect[j + 1];
                 CV->elementosvect[j + 1] = temp;
@@ -240,7 +239,6 @@ VetorConjuntos conjuntoPartes(Conjunto *C){
     criaConjunto(&resultado); 
     VetorConjuntos conjuntosvetor;
     criaVect(&conjuntosvetor);
-
     if (C != NULL){
         int n = C->tamanho;
         int numSubconjuntos = pow(2, n);
@@ -260,27 +258,27 @@ VetorConjuntos conjuntoPartes(Conjunto *C){
 }
 //Funcao pra mostrar os elementos no conjunto
 void mostraConjunto(Conjunto C, int ordem){
-        if(ordem == CRESCENTE){
-            printf("{");
-            for(int i = 0; i < C.tamanho; i++){
-                printf("%ld", C.elementos[i]);
-                if(i < C.tamanho - 1){
-                    printf(", ");
-                }
+    if(ordem == CRESCENTE){
+        printf("{");
+        for(int i = 0; i < C.tamanho; i++){
+            printf("%ld", C.elementos[i]);
+            if(i < C.tamanho - 1){
+                printf(", ");
             }
         }
-        else if (ordem == DECRESCENTE){
-            printf("{");
-            for(int i = C.tamanho - 1; i >= 0; i--){
-                printf("%ld", C.elementos[i]);
-                if(i < C.tamanho - 1){
-                    printf(", ");
-                }
+    }
+    else if (ordem == DECRESCENTE){
+        printf("{");
+        for(int i = C.tamanho - 1; i >= 0; i--){
+            printf("%ld", C.elementos[i]);
+            if(i < C.tamanho - 1){
+                printf(", ");
             }
         }
-        printf("}\n");
+    }
+    printf("}\n");
 }
-// Funcao para copiar um conjunto para outro
+// Funcao ara copiar um conjunto para outro
 int copiarConjunto(Conjunto *C1, Conjunto *C2){
     if (C1 != NULL && C2 != NULL){
         C2->tamanho = C1->tamanho;
@@ -289,7 +287,7 @@ int copiarConjunto(Conjunto *C1, Conjunto *C2){
         } return SUCESSO;
     } return FALHA;
 }
-// Funcao para destruir o conjunto
+// Funcao pra destruir o conjunto
 int destroiConjunto(Conjunto *C){
     if (C != NULL){
         C->tamanho = 0;
@@ -297,11 +295,11 @@ int destroiConjunto(Conjunto *C){
         return SUCESSO;
     } return FALHA;
 }
-//Funcao pra printar linha :O
+//Funcao pra printar linha
 void printLinha(){
     printf("+-------------------------------------------------------------------------------------------------------------+\n");
 }
-//Funcao pra printar as opcões :O
+//Funcao pra printar as opcões
 void opcoes(){
     printLinha();
     printf("| [ 1] -> [Criar um conjunto C]                          |    [10] -> [Gerar conjunto das partes]             |\n");
@@ -314,8 +312,8 @@ void opcoes(){
     printf("| [ 8] -> [Verificar elementos menores que um numero]    |    [17] -> [Copiar conjunto para outro]            |\n");
     printf("| [ 9] -> [Verificar pertinencia de um elemento]         |    [18] -> [Destruir conjunto]                     |\n");
 }
-//Funcao pra printar boas vindas :O
-void boasVindas(){
+//Funcao pra printar titulo
+void titulo(){
     printLinha();
     printf("                                                                                                  _            \n");
     printf("  ___  _ __   ___ _ __ __ _  ___ __ _  ___     ___ ___  _ __ ___     ___ ___  _ __  _ _   _ _ __ | |_ ___  ___ \n");
@@ -338,7 +336,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         if(quantidade <= 0){
             printf("Quantidade invalida, tente novamente.\n");
             printf("Quantos elementos em C1?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em C1:\n");
     for(int i = 0; i<quantidade; i++){
@@ -354,25 +352,24 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
         }
     }
     printf("Quantos elementos em C2?: ");
-    int quantidade2;
     while(1){
-        scanf("%d", &quantidade2);
-        if(quantidade2 <= 0){
+        scanf("%d", &quantidade);
+        if(quantidade <= 0){
             printf("Quantidade invalida, tente novamente\n");
             printf("Quantos elementos em C2?: ");
-        }else break;
+        } else break;
     }
     printf("Digite os elementos a serem inseridos em C2:\n");
-    for(int i = 0; i<quantidade2; i++){
-        long int elemento2;
+    for(int i = 0; i<quantidade; i++){
+        long int elemento;
         printf("%d elemento: ", i+1);
-        scanf("%ld", &elemento2);
-        if(pertenceConjunto(elemento2, C2)){
+        scanf("%ld", &elemento);
+        if(pertenceConjunto(elemento, C2)){
             printf("Elemento ja pertence ao conjunto, insira um novo elemento: \n");
             i--;
         }
         else{
-            insereElementoConjunto(elemento2, C2);
+            insereElementoConjunto(elemento, C2);
         }
     }
 }
@@ -380,7 +377,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
 // Corpo Principal
 //==============================================================================
 int main(){
-    boasVindas();
+    titulo();
     int escolha, criadoC = 0;
     while(escolha != 0){
         Conjunto C, C1, C2;
@@ -497,7 +494,8 @@ int main(){
             }
             case 10: {
                 if(criadoC){
-                    mostraConjuntoPartes(conjuntoPartes(&C));
+                    VetorConjuntos conjuntoPrts = conjuntoPartes(&C);
+                    mostraConjuntoPartes(conjuntoPrts);
                     printf("\n");
                     break;
                 }
@@ -564,7 +562,7 @@ int main(){
                 default:
                     printf("Opcao invalida. Tente novamente.\n");
                     break;
-                }break;
+                } break;
             }
             case 0: {
                 printf("Encerrando programa.\n");
