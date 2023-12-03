@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#define SUCESSO 1
+#define FALHA 0
 ////////////////
 //Teste.h
 ////////////////
@@ -9,66 +11,50 @@ typedef struct node SimpleNode;
 typedef struct linkedlist LinkedList;
 LinkedList *createLinkedList();
 SimpleNode *createSimpleNode(int key, int val);
-void addFirst(LinkedList *lk, SimpleNode *sn);
-void addFirstArgs(LinkedList *lk, int key, int val);
+int addFirst(LinkedList *lk, SimpleNode *sn);
+int addFirstArgs(LinkedList *lk, int key, int val);
 void printLinkedList(LinkedList *lk);
 
 ///////////////
 //Teste.c
 ///////////////
 
-//Definindo o Nó da Linked List
 typedef struct node{
     int key;
     int val;
     struct node *next;
 } SimpleNode;
 
-//Definindo o apontador para o primeiro Nó da Linked List
 typedef struct linkedlist{
     SimpleNode *begin;
 } LinkedList;
 
-//O Calloc já define o bloco alocado com valores 0 para inteiro e 
-//Null para ponteiros, mas pra facilitar o entendimento, begin também
-//recebe NULL
 LinkedList *createLinkedList(){
     LinkedList *lk = (LinkedList *)calloc(1, sizeof(LinkedList));
-    lk->begin = NULL; 
+    lk->begin = NULL;
     return lk;
 }
-//Criando um construtor de Nó Simples para a Linked List, com a mesma 
-//observação sobre NULL acima
+
 SimpleNode *createSimpleNode(int key, int val){
     SimpleNode *sn = (SimpleNode *)calloc(1, sizeof(SimpleNode));
     sn->key = key, sn->val = val, sn->next = NULL;
     return sn;
 }
-//Aqui ele adiciona um Nó criado no início da Linked List
-void addFirst(LinkedList *lk, SimpleNode *sn){
-    //se a LinkedList está vazia, begin é um valor NULL, e next tbm é NULL
-    //Ou seja, caso a lista esteja vazia ou com outros elementos, a inserção é válida em ambos os casos
+
+int addFirst(LinkedList *lk, SimpleNode *sn){
     sn->next = lk->begin, lk->begin = sn;
+    return SUCESSO;
 }
-//Aqui é outro construtor pra caso o Nó ainda não esteja criado
-void addFirstArgs(LinkedList *lk, int key, int val){
+
+int addFirstArgs(LinkedList *lk, int key, int val){
     SimpleNode *sn = createSimpleNode(key, val);
     sn->next = lk->begin, lk->begin = sn;
+    return SUCESSO;
 }
-//Funçãozinha pra printar a lista
-void printLinkedList(LinkedList *lk){
-    SimpleNode *p = lk->begin;
-    printf("LK -> ");
-    while(p != NULL){
-        printf("Chave: %d, Valor: %d -> ", p->key, p->val);
-        p = p->next;
-    }
-    printf("NULL\n");
-}
-//Função pra adicionar no final
-void addLast(LinkedList *lk, SimpleNode *sn){
+
+int addLast(LinkedList *lk, SimpleNode *sn){
     if(lk->begin == NULL){
-        //Se a lista estiver vazia, o inicio também pode ser o final
+
         addFirst(lk, sn);
     } 
     else{ 
@@ -78,9 +64,10 @@ void addLast(LinkedList *lk, SimpleNode *sn){
         }
         p->next = sn;
     }
+    return SUCESSO;
 }
-//Função pra adicionar no final, mas no mesmo esquema da addFirstArgs
-void addLastArgs(LinkedList *lk, int key, int val){
+
+int addLastArgs(LinkedList *lk, int key, int val){
     
     SimpleNode *sn = createSimpleNode(key, val);
     if(lk->begin == NULL){
@@ -92,6 +79,37 @@ void addLastArgs(LinkedList *lk, int key, int val){
             p = p->next;
         }
         p->next = sn;
+    }
+    return SUCESSO;
+}
+
+void printLinkedList(LinkedList *lk){
+    SimpleNode *p = lk->begin;
+    printf("LK -> ");
+    while(p != NULL){
+        printf("Chave: %d, Valor: %d -> ", p->key, p->val);
+        p = p->next;
+    }
+    printf("NULL\n");
+}
+
+void removeElementByKey(LinkedList *lk, int key){
+    SimpleNode *prev = NULL;
+    SimpleNode *pos = lk->begin;
+
+    while(pos != NULL && pos->key != key){
+        prev = pos;
+        pos = pos->next;
+    }
+
+    if(pos != NULL){
+        if(prev == NULL){
+            lk->begin = pos->next;
+        } 
+        else{
+            prev->next = pos->next;
+        }
+        free(pos);
     }
 }
 
@@ -107,6 +125,15 @@ int main(){
     addLastArgs(lk, 6, 34);
     addLastArgs(lk, 7, 37);
     addFirstArgs(lk, 8, 45);
+    printLinkedList(lk);
+    removeElementByKey(lk, 2);
+    printLinkedList(lk);
+    removeElementByKey(lk, 9);
+    printLinkedList(lk);
+    removeElementByKey(lk, 7);
+    removeElementByKey(lk, 8);
+    printLinkedList(lk);
+    removeElementByKey(lk, 6);
     printLinkedList(lk);
 
     return 0;

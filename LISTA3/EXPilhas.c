@@ -187,7 +187,7 @@ void titulo(){
 //==============================================================================
 int main(){
     titulo();
-    int escolha, criadoP = 0;
+    int escolha = 1, criadoP = 0;
     while(escolha != 0){
         Stack P, P1, P2;
         printLinha();

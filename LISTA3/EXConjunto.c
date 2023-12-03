@@ -378,7 +378,7 @@ void AuxiliarCriarC1C2(Conjunto *C1, Conjunto *C2){
 //==============================================================================
 int main(){
     titulo();
-    int escolha, criadoC = 0;
+    int escolha = 1, criadoC = 0;
     while(escolha != 0){
         Conjunto C, C1, C2;
         printLinha();

@@ -149,7 +149,7 @@ void boasVindas(){
 }
 int main() {
     Texto *texto = NULL;
-    int escolha;
+    int escolha = 1;
     char textoAux[1000];
     boasVindas();
     while (escolha != 0){

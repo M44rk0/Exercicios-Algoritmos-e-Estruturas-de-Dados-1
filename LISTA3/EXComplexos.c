@@ -332,7 +332,7 @@ void boasVindas(){
 
 int main(){
     boasVindas();
-    int escolha, criadoC = 0;
+    int escolha = 1, criadoC = 0;
     while(escolha != 0){
         Conjunto C, C1, C2;
         printLinha();

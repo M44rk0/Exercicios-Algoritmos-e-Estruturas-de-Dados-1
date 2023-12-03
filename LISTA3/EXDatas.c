@@ -328,7 +328,7 @@ void titulo(){
 //==============================================================================
 int main(){
    titulo();
-    int escolha;
+    int escolha = 1;
     Data *d = NULL, *d1 = NULL, *d2 = NULL, *copia = NULL;
     while(escolha != 0){
         printLinha();
